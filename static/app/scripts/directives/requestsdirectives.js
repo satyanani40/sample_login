@@ -99,7 +99,7 @@ angular.module('weberApp')
                         function display_divs(){
                            console.log('======calling display divs========')
                            previous_divs1 = getData();
-                           var count = 490;
+                           var count = 300;
 
                            for(k in previous_divs1){
                                 previous_divs1[k].right = count;

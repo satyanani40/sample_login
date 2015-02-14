@@ -1,3 +1,4 @@
+<div navbar></div>
 <div class="container">
     <div class="col-md-3 colpadding" wb-affix="150">
 		<div class="thumbnail">
@@ -7,16 +8,11 @@
                         <img class="img-rounded" style="width:;" src="{{user.picture.large}}" />
                     </a>
                 </div>
-                <div class="play">
-                   <span class="btn btn-file btn-block" style="background-color: rgba(0, 0, 0, 0.63) !important;
-                   border-color: rgba(0, 0, 0, 0.63) !important;">
-                       <i class="glyphicon glyphicon-camera" style="font-size:35px;color:#fff;"></i>
-                       <input type="file">
-                   </span>
-                </div>
             </div>
 			<div class="caption text-center">
-				<h3 style="text-transform: capitalize;">{{user.name.first}} {{user.name.last}}</h3>
+				<h3 style="text-transform: capitalize;">
+                    {{user.name.first}} {{user.name.last}}
+                </h3>
 				@{{user.username}}
 			</div>
 		</div>
@@ -32,15 +28,19 @@
 			</a>
 		</div>
 	</div>
-    <div class="col-md-7 colpadding" style="min-height:auto">
+    <div class="col-md-6 colpadding" style="min-height:auto">
         <div class="row">
            <div class="col-sm-12">
                <div class="panel panel-default">
                    <div class="panel-heading">
-
+                        <h5>Settings</h5>
                    </div>
                    <div class="panel-body" style="padding:0px">
                        <div class="list-group" style="margin-bottom:0px;">
+
+                            <input type="file" file-model="myFile"/>
+                            <button ng-click="uploadFile()">upload me</button>
+
                             <a class="list-group-item"
                                ng-click="showUsername = ! showUsername"
                                style="cursor:pointer;border-top-left-radius: 0px;border-top-right-radius: 0px;">
@@ -58,7 +58,7 @@
                                     <div class="row">
                                         <div class="col-sm-offset-3 col-sm-8">
                                             <input type="text" class="form-control"
-                                                   ng-model="updateUsername"
+                                                   ng-model="u_username"
                                                    placeholder="{{ user.username }}" />
                                         </div>
                                     </div>
@@ -91,14 +91,14 @@
                                 <div class="row">
                                     <div class="col-sm-offset-3 col-sm-8">
                                         <input type="text" class="form-control"
-                                               ng-model="updateEmail"
+                                               ng-model="u_email"
                                                placeholder="{{ user.email }}" />
                                     </div>
                                 </div>
                                 <div class="row" style="padding-top:10px;">
                                     <div class="col-sm-2 col-sm-offset-3">
                                         <input type="submit" value="Update Ok"
-                                               ng-click="updateSubmit()" class="btn btn-success btn-sm" >
+                                               ng-click="updateEmail()" class="btn btn-success btn-sm" >
                                     </div>
                                     <div class="col-sm-2">
                                         <input type="submit" value="cancel"
@@ -115,7 +115,7 @@
                                         <h6>Password</h6>
                                     </div>
                                     <div class="col-sm-6">
-                                        <h6 style="color:#999"><b>Updated by 2 months ago</b></h6>
+                                        <h6 style="color:#999"><b>Updated just now</b></h6>
                                     </div>
                                 </div>
                             </a>
@@ -123,14 +123,14 @@
                                 <div class="row">
                                     <div class="col-sm-offset-3 col-sm-8">
                                         <input type="password" class="form-control"
-                                               ng-model="updatePassword"
-                                               placeholder="Enter High Level Password" />
+                                               ng-model="u_password"
+                                               placeholder="{{ user.password_test }}" />
                                     </div>
                                 </div>
                                 <div class="row" style="padding-top:10px;">
                                     <div class="col-sm-2 col-sm-offset-3">
                                         <input type="submit" value="Update Ok"
-                                               ng-click="updateSubmit()" class="btn btn-success btn-sm" >
+                                               ng-click="updatePassword()" class="btn btn-success btn-sm" >
                                     </div>
                                     <div class="col-sm-2">
                                         <input type="submit" value="cancel"
@@ -155,14 +155,14 @@
                                 <div class="row">
                                     <div class="col-sm-offset-3 col-sm-8">
                                         <input type="text" class="form-control"
-                                               ng-model="updateLocation"
+                                               ng-model="u_location"
                                                placeholder="{{ user.location.state }}" />
                                     </div>
                                 </div>
                                 <div class="row" style="padding-top:10px;">
                                     <div class="col-sm-2 col-sm-offset-3">
                                         <input type="submit" value="Update Ok"
-                                               ng-click="updateSubmit()" class="btn btn-success btn-sm" >
+                                               ng-click="updateLocation()" class="btn btn-success btn-sm" >
                                     </div>
                                     <div class="col-sm-2">
                                         <input type="submit" value="cancel"
@@ -187,14 +187,14 @@
                                 <div class="row">
                                     <div class="col-sm-offset-3 col-sm-8">
                                         <input type="text" class="form-control"
-                                               ng-model="updateHabits"
+                                               ng-model="u_habits"
                                                placeholder="Reading News Paper, Playing Chess" />
                                     </div>
                                 </div>
                                 <div class="row" style="padding-top:10px;">
                                     <div class="col-sm-2 col-sm-offset-3">
                                         <input type="submit" value="Update Ok"
-                                               ng-click="updateSubmit()" class="btn btn-success btn-sm" >
+                                               ng-click="updateHabits()" class="btn btn-success btn-sm" >
                                     </div>
                                     <div class="col-sm-2">
                                         <input type="submit" value="cancel"

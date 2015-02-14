@@ -1,0 +1,15 @@
+.side_chat{
+    position: fixed;
+    bottom: 0px;
+    right:0px;
+    width:300px;
+    padding-right: 0px !important;
+}
+
+.chat_divs{
+    width:300px;
+    margin-left:10px;
+    position: fixed;
+    bottom: 0px;
+}
+
