@@ -8,7 +8,7 @@
  * Controller of the weberApp
  */
 angular.module('weberApp')
-	.controller('SignupCtrl', function($scope, $auth) {
+	.controller('SignupCtrl', function($scope, $auth, $location) {
 		$scope.registerUser = function() {
 			$auth.signup({
 				email: $scope.formData.email,
@@ -18,6 +18,7 @@ angular.module('weberApp')
 				username: $scope.formData.username
 			}).then(function(response) {
 				console.log(response.data);
+				$location.path('/emaildetails')
 			});
 		};
 	}).directive('validPasswordC', function () {
