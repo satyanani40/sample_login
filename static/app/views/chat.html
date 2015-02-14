@@ -2,12 +2,12 @@
 	<div class="container">
 
 		<div class="row">
-			<div class="col-md-3 colpadding" style="position: fixed;bottom: 0px;right:0px" wb-affix="150">
+			<div class="col-md-3 colpadding side_chat" style="" wb-affix="150">
                 <div class="panel panel-success" style="margin-bottom:0px;cursor:default;border:none;">
                     <div class="panel-heading" style="border:none;">
                         <h5 style="margin-top: 5px;margin-bottom: 5px;">
-                            <i class="glyphicon glyphicon-comment" style="top:4px"></i>&nbsp;
-                            Chat
+                            <i class="glyphicon glyphicon-user" style="top:2px"></i>&nbsp;
+                            Online Friends
                             <a  class="pull-right" style="color:#888;"><h6>30 Online</h6></a>
                         </h5>
                     </div>
@@ -40,28 +40,41 @@
                 </div>
             </div>
 
-            <div ng-repeat="previousdiv in previousdivs" class="col-md-3 colpadding"
-                 style="margin-left:10px;position: fixed;bottom: 0px;right:{{ previousdiv.right}}px;width:300px;height:{{ previousdiv.height}}"
+            <div ng-repeat="previousdiv in previousdivs" class="col-md-3 colpadding chat_divs"
+                 style="right:{{ previousdiv.right}}px;height:{{ previousdiv.height}}"
                  wb-affix="150">
                 <div class="panel panel-success" style="margin-bottom:0px;cursor:default;border:none;">
 
                     <div class="panel-heading" style="border:none;">
-                        <h5 style="margin-top: 5px;margin-bottom: 5px;">
-                            <i class="glyphicon glyphicon-comment" style="top:4px"></i>&nbsp;
-                            {{ previousdiv.name }}
-                            <a ng-click="close_div('{{ previousdiv.id}}')" class="pull-right" style="color:#888;"><h6>close</h6></a>
-                            <div ng-if="previousdiv.maximize">
-                                <a   ng-click="minimize('{{ previousdiv.id }}')" class="pull-right" style="color:#888;">
-                                    <h6>minimize</h6>
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <a href="">
+                                    {{ previousdiv.name }}
                                 </a>
                             </div>
-                            <div  ng-if="previousdiv.minimize">
-                                <a  ng-click="maximize('{{ previousdiv.id }}')" class="pull-right" style="color:#888;">
-                                    <h6>maximize</h6>
-                                </a>
+                            <div class="col-sm-3">
+                                <span>
+                                    <a ng-click="close_div('{{ previousdiv.id}}')"
+                                       class="pull-right" style="color:#888;cursor:pointer;">
+                                        <i class="fa fa-close"></i>
+                                    </a>
+                                    <div ng-if="previousdiv.maximize">
+                                        <a   ng-click="minimize('{{ previousdiv.id }}')"
+                                             class="" style="color:#888;cursor:pointer;">
+                                            <i class="fa fa-toggle-down"></i>
+                                        </a>
+                                    </div>
+                                    <div  ng-if="previousdiv.minimize">
+                                        <a  ng-click="maximize('{{ previousdiv.id }}')"
+                                            class="" style="color:#888;cursor:pointer;">
+                                            <i class="fa fa-toggle-up"></i>
+                                        </a>
+                                    </div>
+                                </span>
                             </div>
+                        </div>
 
-                        </h5>
+
                     </div>
 
 
@@ -69,29 +82,49 @@
 							<ul class="chat">
 								<li class="left clearfix">
                                     <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                                        <a href="">
+                                            <img src="http://api.randomuser.me/portraits/men/90.jpg"
+                                             style="width:35px" alt="User Avatar" class="img-circle" />
+                                        </a>
                                     </span>
 									<div class="chat-body clearfix">
 										<div class="header">
-											<strong class="primary-font">Jack Sparrow</strong>  <small class="pull-right text-muted">
-                                        <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
+											<strong class="" style="font-size:12px">
+                                                <a href="">
+                                                    Jack Sparrow
+                                                </a>
+                                            </strong>
+                                            <small class="pull-right text-muted" style="opacity:0.60;font-size:10px">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                                14 mins ago
+                                            </small>
 										</div>
-										<p>
-											Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+										<p style="font-size:12px">
+											Lorem ipsum dolor sit amet edit, consectetur adipiscing elit.
+
 										</p>
 									</div>
 								</li>
 								<li class="right clearfix">
                                     <span class="chat-img pull-right">
-                                        <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                                        <img src="http://api.randomuser.me/portraits/women/44.jpg"
+                                             style="width:35px" alt="User Avatar" class="img-circle" />
                                     </span>
 									<div class="chat-body clearfix">
 										<div class="header">
-											<small class=" text-muted"><span class="glyphicon glyphicon-time"></span>15 mins ago</small>
-											<strong class="pull-right primary-font">Bhaumik Patel</strong>
+											<small class=" text-muted" style="opacity:0.60;font-size:10px">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                                15 mins ago
+                                            </small>
+											<strong class="pull-right " style="font-size:12px">
+                                                <a href="">
+                                                    Bhaumik Patel
+                                                </a>
+                                            </strong>
 										</div>
-										<p>
-											Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+										<p style="font-size:12px">
+											Lorem ipsum dolor sit amet edit, consectetur adipiscing elit.
+
 										</p>
 									</div>
 								</li>

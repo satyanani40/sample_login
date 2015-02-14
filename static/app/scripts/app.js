@@ -77,13 +77,10 @@ angular
 			.when('/profile/:username', {
 				templateUrl: '/static/app/views/userprofile.html',
 				controller: 'UserprofileCtrl',
-				resolve: {
-					authenticated: function($location, $auth) {
-						if (!$auth.isAuthenticated()) {
-							return $location.path('/login');
-						}
-					}
-				}
+			})
+			.when('/forgotpassword', {
+				templateUrl: '/static/app/views/f_password.html'
+
 			})
 			.when('/weber_search', {
 				templateUrl: '/static/app/views/search.html',
@@ -119,9 +116,8 @@ angular
 					}
 				}
 			})
-			.when('/search', {
-				templateUrl: '/static/app/views/about.html',
-				controller: 'AboutCtrl'
+			.when('/emaildetails', {
+				templateUrl: '/static/app/views/emaildetails.html'
 			})
 			.when('/signup', {
 				templateUrl: '/static/app/views/signup.html',
