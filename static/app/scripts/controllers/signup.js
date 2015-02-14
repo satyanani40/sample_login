@@ -16,8 +16,8 @@ angular.module('weberApp')
 				firstname: $scope.formData.firstname,
 				lastname: $scope.formData.lastname,
 				username: $scope.formData.username
-			}).then(function(response) {
-				console.log(response.data);
+			}).then(function() {
+				console.log("===========");
 				$location.path('/emaildetails')
 			});
 		};

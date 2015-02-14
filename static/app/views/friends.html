@@ -22,7 +22,7 @@
 			<div class="clearfix panel-heading">Friends({{user.friends.length}})</div>
 
 			<a ng-repeat="friend in friends" href="#/profile/{{friend._id}}">
-				<img data-placement="top-right" data-content="{{friend.location.city}}, {{friend.location.state}}" title="{{friend.name.first}} {{friend.name.last}}" data-trigger="hover" bs-popover src="{{friend.picture.thumbnail}}">
+				<img data-placement="top-right" style="width:70px" data-content="{{friend.location.city}}, {{friend.location.state}}" title="{{friend.name.first}} {{friend.name.last}}" data-trigger="hover" bs-popover src="{{friend.picture.thumbnail}}">
 			</a>
 		</div>
 	</div>

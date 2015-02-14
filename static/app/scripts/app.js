@@ -61,7 +61,7 @@ angular
 	])
 	.config(function($routeProvider, $locationProvider, $authProvider) {
 		$authProvider.logoutRedirect = '/';
-		$authProvider.loginOnSignup = true;
+		$authProvider.loginOnSignup = false;
 		$routeProvider
 			.when('/', {
 				templateUrl: '/static/app/views/main.html',

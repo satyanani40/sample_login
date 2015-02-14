@@ -16,6 +16,15 @@ import flask
 import urllib2, random
 from views import get_search
 from weberdb import WeberDB
+from flask.ext.socketio import SocketIO, emit, join_room, leave_room
+
+
+
+from flask import Flask
+from flask_mail import Mail, Message
+
+
+
 
 
 class TokenAuth(TokenAuth):
@@ -26,6 +35,19 @@ class TokenAuth(TokenAuth):
 
 app = Eve(__name__,static_url_path='/static')
 app.debug = True,
+
+
+app.config.update(
+	DEBUG=True,
+	#EMAIL SETTINGS
+	MAIL_SERVER='smtp.gmail.com',
+	MAIL_PORT=465,
+	MAIL_USE_SSL=True,
+	MAIL_USERNAME = 'suryachowdary93@gmail.com',
+	MAIL_PASSWORD = 'Llakshmi@muppalla7'
+	)
+
+mail=Mail(app)
 
 def create_token(user):
     payload = {
@@ -41,6 +63,9 @@ def create_token(user):
 def parse_token(req):
     token = req.headers.get('Authorization').split()[1]
     return jwt.decode(token, TOKEN_SECRET)
+
+
+
 
 
 def login_required(f):
@@ -92,6 +117,27 @@ def login():
     token = create_token(user)
     return jsonify(token=token)
 
+
+@app.route('/forgotpasswordlink', methods=['POST', 'GET'])
+def forgotpassword():
+    accounts = app.data.driver.db['people']
+    user = accounts.find_one({'email': request.json['email']})
+    if not user:
+        response = jsonify(error = 'Your Email does not exist in our database')
+        response.status_code = 401
+        return response
+    msg = Message('Confirmation Link From WEBER',
+                  sender='suryachowdary93@gmail.com',
+                  recipients=[request.json['email']]
+    )
+    msg.html = '<div style="color:green;font-size:30px">' \
+                    'this is test html' \
+               '</div>'
+    mail.send(msg)
+
+    return "recovery email link has been sent to providing email"
+
+
 @app.route('/getsearch')
 def getSearchResults():
     extract_words = []
@@ -114,23 +160,8 @@ def getSimilarWords():
 ##################################################
 #Signup with email confirm validation
 
-from flask import Flask
-from flask_mail import Mail, Message
 
-
-app.config.update(
-	DEBUG=True,
-	#EMAIL SETTINGS
-	MAIL_SERVER='smtp.gmail.com',
-	MAIL_PORT=465,
-	MAIL_USE_SSL=True,
-	MAIL_USERNAME = 'suryachowdary93@gmail.com',
-	MAIL_PASSWORD = 'Llakshmi@muppalla7'
-	)
-
-mail=Mail(app)
-
-
+import time
 @app.route('/auth/signup', methods=['POST'])
 def signup():
     accounts = app.data.driver.db['people']
@@ -143,17 +174,34 @@ def signup():
             },
             'password' :generate_password_hash(request.json['password']),
             'password_test':request.json['password'],
-            'confirmed':False
+            'confirmed':False,
+            'picture' : {
+                'large' : "http://icons.iconarchive.com/icons/hydrattz/multipurpose-alphabet/256/Letter-W-blue-icon.png",
+                'medium' : "http://icons.iconarchive.com/icons/hydrattz/multipurpose-alphabet/256/Letter-W-blue-icon.png",
+                'thumbnail' : "http://icons.iconarchive.com/icons/hydrattz/multipurpose-alphabet/256/Letter-W-blue-icon.png"
+            },
+            'accept_notifications':[],
+            'born' : "",
+            'gender' : "",
+            '_created':time.strftime('%Y-%m-%d %H:%M:%S'),
+            'phone' : '',
+            'location' : {
+                'city' : "",
+                'state' : "",
+                'street' : ""
+            },
+            'friends' : [],
+            'notifications':[]
     }
     accounts.insert(user)
-    token = create_token(user)
+
     msg = Message('Confirmation Link From WEBER',
                   sender='suryachowdary93@gmail.com',
                   recipients=[request.json['email']]
     )
     msg.html = '<div style="color:green;font-size:30px">this is test html</div>'
     mail.send(msg)
-    return jsonify(token=token)
+    return "email has been sent successfully"
 
 
 #end of confirm validation
@@ -248,10 +296,19 @@ def fileupload():
             print os.path.join(app.config['UPLOAD_FOLDER'], renamed_filename)
         return os.path.join(app.config['UPLOAD_FOLDER'], renamed_filename)
 
+#chating part
+socketio = SocketIO(app)
 
 
-app.run(threaded= True, host='127.0.0.1',port=8000)
+@socketio.on('connect')
+def test_connect():
+    print '========================'
+    print 'connected'
+    emit('connect_ack', {'data': 'Connected'})
 
+app.threaded=True
+
+socketio.run(app,host='192.168.0.101',port=8000)
 
 # server sent events section
 """from redis import Redis
