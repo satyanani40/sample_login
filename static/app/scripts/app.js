@@ -74,6 +74,10 @@ angular
 					}
 				}
 			})
+			.when('/search', {
+				templateUrl: '/static/app/views/search_engine.html',
+
+			})
 			.when('/profile/:username', {
 				templateUrl: '/static/app/views/userprofile.html',
 				controller: 'UserprofileCtrl',

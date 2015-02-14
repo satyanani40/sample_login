@@ -100,10 +100,9 @@ angular.module('weberApp')
                            console.log('======calling display divs========')
                            previous_divs1 = getData();
                            var count = 300;
-
                            for(k in previous_divs1){
                                 previous_divs1[k].right = count;
-                                count = count+300;
+                                count = count+298;
                            }
 
                            $scope.previousdivs = previous_divs1;
