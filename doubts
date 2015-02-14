@@ -1,0 +1,4 @@
+while initating friendsActivity constructor this.profile.patch object
+not updating _etag.
+
+that's why i am rewritting code of getting profile user in every firends activity function.

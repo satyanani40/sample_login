@@ -1,0 +1,79 @@
+<div navbar></div>
+<div class="container">
+	<div class="col-md-3 colpadding" wb-affix="150">
+		<div class="thumbnail">
+			<img class="img-rounded" style="width: 100%;" src="{{profileuser.picture.medium}}">
+			<div class="caption text-center">
+				<h3 style="text-transform: capitalize;">{{profileuser.name.first}} {{profileuser.name.last}}</h3>
+				@{{profileuser.username}}
+					<br>
+
+
+
+                <div ng-switch on="check_relation()">
+
+                    <div ng-switch-when="unfriend">
+						<addfriend>
+                        	<button ng-click="unfriend()" class="btn btn-primary">unfriend</button>
+						</addfriend>
+                    </div>
+
+                    <div ng-switch-when="cancelrequest">
+                        <addfriend><button ng-click="cancelrequest()" class="btn btn-primary">cancel request</button></addfriend>
+                    </div>
+
+                    <div ng-switch-when="reject_accept">
+                        <button ng-click="accept_request()" class="btn btn-primary">accept request</button>
+                        <button ng-click="reject_request()" class="btn btn-primary">reject request</button>
+                    </div>
+
+                    <div ng-switch-when="addfriend">
+                        <cancelrequest>
+                            <button ng-click="AddFriend()" class="btn btn-primary">Add Friend</button>
+                        </cancelrequest>
+                    </div>
+
+                    <div class="animate-switch" ng-switch-default>default</div>
+                </div>
+
+			</div>
+		</div>
+		<div class="list-group">
+			<a href="#" ng-repeat="interest in profileuser.interests" class="list-group-item am-slide-top">{{interest}}</a>
+			<a href="#" class="list-group-item"><span class="badge badge-primary">38</span>Morbi leo risus</a>
+		</div>
+		<div class="panel panel-default">
+			<div class="clearfix panel-heading">Friends({{profileuser.friends.length}})</div>
+
+			<a ng-repeat="friend in friends" href="#/profile/{{friend._id}}">
+				<img data-placement="top-right" data-content="{{friend.location.city}}, {{friend.location.state}}" 
+						 title="{{friend.name.first}} {{friend.name.last}}"
+						 data-trigger="hover" bs-popover src="{{friend.picture.thumbnail}}">
+			</a>
+		</div>
+	</div>
+	<div class="col-md-7 colpadding" style="min-height:2000px">
+		<div infinite-scroll='infinitePosts.nextPage()' infinite-scroll-disabled='infinitePosts.busy'
+			 infinite-scroll-distance='1'>
+			<div class="media panel panel-default" ng-repeat="post in infinitePosts.posts">
+				<div class="media-body panel-heading">
+					<a class="pull-left" style="padding: 5px;" href="#/profile/{{UserService.get(post.author)._id}}">
+						<img style="width:28px" class="media-object img-circle"
+							 src="{{UserService.get(post.author).picture.thumbnail}}" alt="">
+					</a>
+					<strong>
+						{{UserService.get(post.author).name.first}} {{UserService.get(post.author).name.last}}
+					</strong>
+					wrote on his story.
+					<br>
+					<small class="text-muted"><span class="glyphicon glyphicon-time"></span>
+						<span am-time-ago="post._created"></span></small>
+					<br>
+				</div>
+				<p class="panel-body">{{post.content}}</p>
+			</div>
+			<div ng-show='infinitePosts.busy'>Loading data...</div>
+			<div ng-show='infinitePosts.end'>You Reached the end!</div>
+		</div>
+	</div>
+</div>
