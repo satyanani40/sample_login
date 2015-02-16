@@ -1,0 +1,275 @@
+<div navbar></div>
+<div class="container">
+    <div class="col-md-3 colpadding" wb-affix="150">
+		<div class="thumbnail">
+            <div class="itemsContainer">
+                <div class="image">
+                    <a href="">
+                        <img class="img-rounded" style="width:;" src="{{user.picture.large}}" />
+                    </a>
+                </div>
+            </div>
+			<div class="caption text-center">
+				<h3 style="text-transform: capitalize;">
+                    {{user.name.first}} {{user.name.last}}
+                </h3>
+				@{{user.username}}
+			</div>
+		</div>
+		<div class="list-group">
+			<a href="#" ng-repeat="interest in user.interests" class="list-group-item">{{interest}}</a>
+			<a href="#" class="list-group-item"><span class="badge badge-primary">38</span>Morbi leo risus</a>
+		</div>
+		<div class="panel panel-default">
+			<div class="clearfix panel-heading">Friends({{user.friends.length}})</div>
+
+			<a ng-repeat="friend in friends" href="#/profile/{{friend._id}}">
+				<img data-placement="top-right" data-content="{{friend.location.city}}, {{friend.location.state}}" title="{{friend.name.first}} {{friend.name.last}}" data-trigger="hover" bs-popover src="{{friend.picture.thumbnail}}">
+			</a>
+		</div>
+	</div>
+    <div class="col-md-6 colpadding" style="min-height:auto">
+        <div class="row">
+           <div class="col-sm-12">
+               <div class="panel panel-default">
+                   <div class="panel-heading">
+                        <h5>Settings</h5>
+                   </div>
+                   <div class="panel-body" style="padding:0px">
+                       <div class="list-group" style="margin-bottom:0px;">
+
+                            <input type="file" file-model="myFile"/>
+                            <button ng-click="uploadFile()">upload me</button>
+
+                            <a class="list-group-item"
+                               ng-click="showUsername = ! showUsername"
+                               style="cursor:pointer;border-top-left-radius: 0px;border-top-right-radius: 0px;">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6>Username</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h6 style="color:#999"><b>{{ user.username }}</b></h6>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="list-group-item" ng-show="showUsername">
+                                <form role="form">
+                                    <div class="row">
+                                        <div class="col-sm-offset-3 col-sm-8">
+                                            <input type="text" class="form-control"
+                                                   ng-model="u_username"
+                                                   placeholder="{{ user.username }}" />
+                                        </div>
+                                    </div>
+                                    <div class="row" style="padding-top:10px;">
+                                        <div class="col-sm-2 col-sm-offset-3">
+                                            <input type="button" value="Update Ok"
+                                                   ng-click="updateUsername()" class="btn btn-success btn-sm" >
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input type="submit" value="cancel"
+                                                   ng-click="showUsername = ! showUsername" class="btn btn-sm" >
+                                        </div>
+                                    </div>
+                                </form>
+                            </a>
+
+                            <a class="list-group-item"
+                               ng-click="showEmail = ! showEmail"
+                               style="cursor:pointer;border-top-left-radius: 0px;border-top-right-radius: 0px;">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6>Email</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h6 style="color:#999"><b>{{ user.email }}</b></h6>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="list-group-item" ng-show="showEmail">
+                                <div class="row">
+                                    <div class="col-sm-offset-3 col-sm-8">
+                                        <input type="text" class="form-control"
+                                               ng-model="u_email"
+                                               placeholder="{{ user.email }}" />
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:10px;">
+                                    <div class="col-sm-2 col-sm-offset-3">
+                                        <input type="submit" value="Update Ok"
+                                               ng-click="updateEmail()" class="btn btn-success btn-sm" >
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="submit" value="cancel"
+                                               ng-click="showEmail = ! showEmail" class="btn btn-sm" >
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a class="list-group-item"
+                               ng-click="showPassword = ! showPassword"
+                               style="cursor:pointer;border-top-left-radius: 0px;border-top-right-radius: 0px;">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6>Password</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h6 style="color:#999"><b>Updated just now</b></h6>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="list-group-item" ng-show="showPassword">
+                                <div class="row">
+                                    <div class="col-sm-offset-3 col-sm-8">
+                                        <input type="password" class="form-control"
+                                               ng-model="u_password"
+                                               placeholder="{{ user.password_test }}" />
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:10px;">
+                                    <div class="col-sm-2 col-sm-offset-3">
+                                        <input type="submit" value="Update Ok"
+                                               ng-click="updatePassword()" class="btn btn-success btn-sm" >
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="submit" value="cancel"
+                                               ng-click="showPassword = ! showPassword" class="btn btn-sm" >
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a class="list-group-item"
+                               ng-click="showLocation = ! showLocation"
+                               style="cursor:pointer;border-top-left-radius: 0px;border-top-right-radius: 0px;">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6>Location</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h6 style="color:#999"><b>{{ user.location.state }}</b></h6>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="list-group-item" ng-show="showLocation">
+                                <div class="row">
+                                    <div class="col-sm-offset-3 col-sm-8">
+                                        <input type="text" class="form-control"
+                                               ng-model="u_location"
+                                               placeholder="{{ user.location.state }}" />
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:10px;">
+                                    <div class="col-sm-2 col-sm-offset-3">
+                                        <input type="submit" value="Update Ok"
+                                               ng-click="updateLocation()" class="btn btn-success btn-sm" >
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="submit" value="cancel"
+                                               ng-click="showLocation = ! showLocation" class="btn btn-sm" >
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a class="list-group-item"
+                               ng-click="showHabits = ! showHabits"
+                               style="cursor:pointer;border-top-left-radius: 0px;border-top-right-radius: 0px;">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6>Hobbies</h6>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <h6 style="color:#999"><b>Reading News Paper, Playing Chess</b></h6>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="list-group-item" ng-show="showHabits">
+                                <div class="row">
+                                    <div class="col-sm-offset-3 col-sm-8">
+                                        <input type="text" class="form-control"
+                                               ng-model="u_habits"
+                                               placeholder="Reading News Paper, Playing Chess" />
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:10px;">
+                                    <div class="col-sm-2 col-sm-offset-3">
+                                        <input type="submit" value="Update Ok"
+                                               ng-click="updateHabits()" class="btn btn-success btn-sm" >
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="submit" value="cancel"
+                                               ng-click="showHabits = ! showHabits" class="btn btn-sm" >
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a class="list-group-item"
+                               ng-click="showInterests = ! showInterests"
+                               style="cursor:pointer;border-top-left-radius: 0px;border-top-right-radius: 0px;">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6>Interests</h6>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <h6 style="color:#999"><b>Learning Programming, Designing Interfaces</b></h6>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="list-group-item" ng-show="showInterests">
+                                <div class="row">
+                                    <div class="col-sm-offset-3 col-sm-8">
+                                        <input type="text" class="form-control"
+                                               ng-model="updateInterests"
+                                               placeholder="Learning Programming, Designing Interfaces" />
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:10px;">
+                                    <div class="col-sm-2 col-sm-offset-3">
+                                        <input type="submit" value="Update Ok"
+                                               ng-click="updateSubmit()" class="btn btn-success btn-sm" >
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="submit" value="cancel"
+                                               ng-click="showInterests = ! showInterests" class="btn btn-sm" >
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a class="list-group-item"
+                               ng-click="showIam = ! showIam"
+                               style="cursor:pointer;border-top-left-radius: 0px;border-top-right-radius: 0px;">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6>I am</h6>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <h6 style="color:#999"><b>Engineer, Actor, Director, Doctor</b></h6>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="list-group-item" ng-show="showIam">
+                                <div class="row">
+                                    <div class="col-sm-offset-3 col-sm-8">
+                                        <input type="text" class="form-control"
+                                               ng-model="updateIam"
+                                               placeholder="Engineer, Actor, Director, Doctor" />
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:10px;">
+                                    <div class="col-sm-2 col-sm-offset-3">
+                                        <input type="submit" value="Update Ok"
+                                               ng-click="updateSubmit()" class="btn btn-success btn-sm" >
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="submit" value="cancel"
+                                               ng-click="showIam = ! showIam" class="btn btn-sm" >
+                                    </div>
+                                </div>
+                            </a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+        </div>
+    </div>
+</div>

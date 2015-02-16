@@ -2,7 +2,7 @@
         <div class="container" style="width:;">
 
             <div class="navbar-header">
-                <a class="navbar-brand" href="/#/" ng-if="isAuthenticated()">
+                <a class="navbar-brand" href="/#/">
                     <span class="glyphicon glyphicon-film"></span>
                     <strong>Weber</strong>
                 </a>
@@ -12,8 +12,8 @@
                     <form role="form" style="margin-top: 8px;">
                         <div class="row">
                             <div class="col-xs-12">
-                                <div class="input-group input-group-md">
-                                    <input type="text" class="form-control" placeholder="Search Friends or anything in weber" />
+                                <div class="input-group input-group-md" ng-if="isAuthenticated()">
+                                    <input type="text" class="form-control" placeholder="Search friends or anything in weber" />
                                     <div class="input-group-btn">
                                         <button type="submit" class="btn">Search</button>
                                     </div><!-- /btn-group -->

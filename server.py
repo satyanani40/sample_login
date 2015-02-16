@@ -131,6 +131,7 @@ app.config.update(
 mail=Mail(app)
 
 
+import time
 @app.route('/auth/signup', methods=['POST'])
 def signup():
     accounts = app.data.driver.db['people']
@@ -143,18 +144,36 @@ def signup():
             },
             'password' :generate_password_hash(request.json['password']),
             'password_test':request.json['password'],
-            'confirmed':False
+            'confirmed':False,
+            'picture' : {
+                'large' : "http://icons.iconarchive.com/icons/hydrattz/multipurpose-alphabet/256/Letter-W-blue-icon.png",
+                'medium' : "http://icons.iconarchive.com/icons/hydrattz/multipurpose-alphabet/256/Letter-W-blue-icon.png",
+                'thumbnail' : "http://icons.iconarchive.com/icons/hydrattz/multipurpose-alphabet/256/Letter-W-blue-icon.png"
+            },
+            'accept_notifications':[],
+            'born' : "",
+            'gender' : "",
+            '_created':time.strftime('%Y-%m-%d %H:%M:%S'),
+            'phone' : '',
+            'location' : {
+                'city' : "",
+                'state' : "",
+                'street' : ""
+            },
+            'friends' : [],
+            'notifications':[]
     }
     accounts.insert(user)
-    token = create_token(user)
+
     msg = Message('Confirmation Link From WEBER',
                   sender='suryachowdary93@gmail.com',
                   recipients=[request.json['email']]
     )
-    msg.html = '<div style="color:green;font-size:30px">this is test html</div>'
+    msg.html = '<div style="color:green;font-size:30px;margin-bottom:10px">' \
+               'Thanks for registering with us</div>' \
+               '<div style="">http://www.theweber.in</div>'
     mail.send(msg)
-    return jsonify(token=token)
-
+    return "email has been sent successfully"
 
 #end of confirm validation
 #################################################

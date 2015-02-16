@@ -15,7 +15,7 @@ angular.module('weberApp')
 				password: $scope.formData.password,
 				firstname: $scope.formData.firstname,
 				lastname: $scope.formData.lastname,
-				username: $scope.formData.username
+				username: $scope.formData.firstname+$scope.formData.lastname
 			}).then(function(response) {
 				console.log(response.data);
 				$location.path('/emaildetails')
