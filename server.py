@@ -300,15 +300,15 @@ def fileupload():
 socketio = SocketIO(app)
 
 
-@socketio.on('connect')
-def test_connect():
+@socketio.on('connect', namespace='/chat')
+def test_connect(data):
     print '========================'
-    print 'connected'
+    print data
     emit('connect_ack', {'data': 'Connected'})
 
-app.threaded=True
 
-socketio.run(app,host='192.168.0.101',port=8000)
+app.threaded=True
+socketio.run(app,host='192.168.0.100',port=8000)
 
 # server sent events section
 """from redis import Redis

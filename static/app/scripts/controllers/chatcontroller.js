@@ -17,9 +17,9 @@ angular.module('weberApp')
                         this.user = user;
 
 
-                        namespace = '/chat';
+                        //namespace = 'chat';
 
-						var socket = io.connect('http://192.168.0.101:8000/'+namespace);
+						var socket = io.connect('http://192.168.0.100:8000/chat/');
 
 						socket.on('connect', function() {
 							socket.emit('connect', {data: 'I\'m connected!'});
