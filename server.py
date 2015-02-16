@@ -300,15 +300,47 @@ def fileupload():
 socketio = SocketIO(app)
 
 
-@socketio.on('connect', namespace='/chat')
-def test_connect(data):
+@socketio.on('connect')
+def creta_or_join(data):
+
     print '========================'
-    print data
-    emit('connect_ack', {'data': 'Connected'})
+    print data['data']
+    if(join_into_room(data['data'])):
+        print request.namespace.rooms
+        emit('join_status',{'data': data['data'] in request.namespace.rooms})
+
+
+@socketio.on('send_message')
+def send_to_room(data):
+
+    print '===========message============='
+    print data['data']
+    print data['message']
+    emit('receive_messages',{'data': data['message'],'by':data['data']},room=data['data'])
+
+    """if(join_into_room(data['data'])):
+        print request.namespace.rooms
+        emit('join_status',{'data': data['data'] in request.namespace.rooms})"""
+
+
+
+@socketio.on_error()
+def error_handler(e):
+    print '============error=========='
+    print e
+
+def join_into_room(id):
+
+    data = False
+    if id is not None:
+        join_room(id)
+        data = True
+    return data
+
 
 
 app.threaded=True
-socketio.run(app,host='192.168.0.100',port=8000)
+socketio.run(app,host='192.168.0.101',port=8000)
 
 # server sent events section
 """from redis import Redis

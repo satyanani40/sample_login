@@ -80,10 +80,11 @@
 
                         <div class="panel-body">
 							<ul class="chat">
-								<li class="left clearfix">
+								<li class="left clearfix" ng-repeat="message in loadedMessages">
+
                                     <span class="chat-img pull-left">
                                         <a href="">
-                                            <img src="http://api.randomuser.me/portraits/men/90.jpg"
+                                            <img src="{{ message.sender.picture.medium }}"
                                              style="width:35px" alt="User Avatar" class="img-circle" />
                                         </a>
                                     </span>
@@ -91,7 +92,7 @@
 										<div class="header">
 											<strong class="" style="font-size:12px">
                                                 <a href="">
-                                                    Jack Sparrow
+                                                    {{ message.sender.name.first }}
                                                 </a>
                                             </strong>
                                             <small class="pull-right text-muted" style="opacity:0.60;font-size:10px">
@@ -100,41 +101,19 @@
                                             </small>
 										</div>
 										<p style="font-size:12px">
-											Lorem ipsum dolor sit amet edit, consectetur adipiscing elit.
+											{{ message.message }}
 
 										</p>
 									</div>
 								</li>
-								<li class="right clearfix">
-                                    <span class="chat-img pull-right">
-                                        <img src="http://api.randomuser.me/portraits/women/44.jpg"
-                                             style="width:35px" alt="User Avatar" class="img-circle" />
-                                    </span>
-									<div class="chat-body clearfix">
-										<div class="header">
-											<small class=" text-muted" style="opacity:0.60;font-size:10px">
-                                                <span class="glyphicon glyphicon-time"></span>
-                                                15 mins ago
-                                            </small>
-											<strong class="pull-right " style="font-size:12px">
-                                                <a href="">
-                                                    Bhaumik Patel
-                                                </a>
-                                            </strong>
-										</div>
-										<p style="font-size:12px">
-											Lorem ipsum dolor sit amet edit, consectetur adipiscing elit.
 
-										</p>
-									</div>
-								</li>
 							</ul>
 						</div>
 						<div class="panel-footer">
 							<div class="input-group">
-								<input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+								<input id="send_{{ previousdiv.id }}" type="text" class="form-control input-sm" placeholder="Type your message here..." />
 								<span class="input-group-btn">
-                                    <button class="btn btn-normal btn-sm" id="btn-chat">
+                                    <button class="btn btn-normal btn-sm" id="btn-chat" ng-click="send_message('{{ previousdiv.id }}')">
                                         Send</button>
                                 </span>
 							</div>

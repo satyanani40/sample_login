@@ -6,6 +6,7 @@ angular.module('weberApp')
 
             this.currentuser = currentuser;
             this.chatfriends = null;
+            this.messages = [];
 
         }
 
@@ -40,6 +41,24 @@ angular.module('weberApp')
             });
         }
 
+        ChatActivity.prototype.loadMessages = function(user1, user2){
+            this.messages = [];
+            var self = this;
+            var params =  '{ "$or" : ['+
+                '{ "$and" : [ { "sender" : "'+user1+'" }, { "receiver" : "'+user2+'" } ] },'+
+                '{ "$and" : [ { "sender" : "'+user2+'" }, { "receiver": "'+user1+'" }  ] }'+
+            ']}';
+            var params2 = '{"sender":1,"receiver":1}'
+            console.log(params)
+            Restangular.all('messages').getList({
+                where:params,
+                embedded:params2
+            }).then(function(response){
+                self.messages.push.apply(self.messages, response);
+                console.log(self.messages)
+            }.bind(self));
+
+        }
 
 
 

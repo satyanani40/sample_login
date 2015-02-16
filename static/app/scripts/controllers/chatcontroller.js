@@ -19,18 +19,22 @@ angular.module('weberApp')
 
                         //namespace = 'chat';
 
-						var socket = io.connect('http://192.168.0.100:8000/chat/');
+						var socket = io.connect('http://192.168.0.101:8000');
 
 						socket.on('connect', function() {
-							socket.emit('connect', {data: 'I\'m connected!'});
+							socket.emit('connect', {data: user._id});
 						});
 
-                        socket.on('connect_ack', function(msg) {
-                            console.log(msg)
+
+                        socket.on('join_status', function(msg) {
+                            if(msg.data){
+                                console.log('successfully joined into room');
+                            }
                         });
 
-
-
+                         socket.on('receive_messages', function(msg) {
+                            console.log(msg);
+                         });
 
 
                         var chatactivity = new ChatActivity(user);
@@ -40,8 +44,11 @@ angular.module('weberApp')
                             });
                         }
 
+
                        $scope.send_message = function(receiverid){
+
                            var text = document.getElementById('send_'+receiverid).value;
+                           socket.emit('send_message', {data: receiverid, message: text});
                            document.getElementById('send_'+receiverid).value = null;
                            var temp = chatactivity.sendMessage(receiverid,text);
 
@@ -95,6 +102,13 @@ angular.module('weberApp')
 
                             $window.sessionStorage.setItem(id, JSON.stringify(json));
                             display_divs();
+                            socket.emit('connect', {data: id});
+
+                            chatactivity.loadMessages(user._id, id);
+                            console.log(chatactivity)
+                            $scope.loadMessages = chatactivity.messages;
+                            $scope.apply();
+
                         }
 
                         $scope.close_div = function(id){
