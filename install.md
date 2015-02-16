@@ -48,9 +48,15 @@ pip install numpy
 install instructions for chat socketio
 =======================================
 Flask-SocketIO
+
 Werkzeug==0.9.4
+
 gevent==1.0
+
 gevent-socketio==0.3.6
+
 gevent-websocket==0.9.2
+
 greenlet==0.4.2
+
 ujson==1.33
