@@ -16,10 +16,14 @@ angular.module('weberApp')
                     Restangular.one('people', JSON.parse(userId)).get().then(function(user) {
                         this.user = user;
 
-
+                         var chatactivity = new ChatActivity(user);
                         //namespace = 'chat';
-
-						var socket = io.connect('http://192.168.0.101:8000');
+                         if(user.friends.length !== 0){
+                            chatactivity.getChatFriends().then(function(data){
+                                $scope.chatusers = data;
+                            });
+                         }
+						var socket = io.connect('http://192.168.0.100:8000');
 
 						socket.on('connect', function() {
 							socket.emit('connect', {data: user._id});
@@ -33,22 +37,65 @@ angular.module('weberApp')
                         });
 
                          socket.on('receive_messages', function(msg) {
-                            console.log(msg);
+
+                              console.log(msg.senderid);
+
+                                new_message = {}
+                              if(user._id == msg.senderid){
+                                new_message = {
+                                              sender :{
+                                                name:{
+                                                    first:user.name.first
+                                                }
+                                              },
+                                              sender :{
+                                                picture :{
+                                                    medium:user.picture.medium
+
+                                                }
+                                              },
+                                              message:msg.message
+                                }
+                              }else{
+                                if($window.sessionStorage.getItem(msg.senderid) == null){
+                                    $scope.on_chatdiv_message = 1;
+
+                                }else{
+                                    $scope.on_chatdiv_message = null;
+                                    details = JSON.parse($window.sessionStorage.getItem(msg.senderid));
+                                        new_message = {
+                                                  sender :{
+                                                    name:{
+                                                        first:JSON.parse(details).name
+                                                    }
+                                                  },
+                                                  sender :{
+                                                    picture :{
+                                                        medium:details.image
+
+                                                    }
+                                                  },
+                                                  message:msg.message
+                                    }
+                                }
+
+                              }
+
+
+
+                              var data = chatactivity.pushMessage(new_message);
+                              console.log(data);
+
+                              $scope.$apply(function(){
+                                $scope.loadedMessages = data;
+                              });
+
                          });
 
-
-                        var chatactivity = new ChatActivity(user);
-                        if(user.friends.length !== 0){
-                            chatactivity.getChatFriends().then(function(data){
-                                $scope.chatusers = data;
-                            });
-                        }
-
-
-                       $scope.send_message = function(receiverid){
+                        $scope.send_message = function(receiverid){
 
                            var text = document.getElementById('send_'+receiverid).value;
-                           socket.emit('send_message', {data: receiverid, message: text});
+                           socket.emit('send_message', {receiverid: receiverid, senderid :user._id  ,message: text});
                            document.getElementById('send_'+receiverid).value = null;
                            var temp = chatactivity.sendMessage(receiverid,text);
 
@@ -62,7 +109,7 @@ angular.module('weberApp')
                         var getData = function(){
                           var json = [];
                           $.each($window.sessionStorage, function(i, v){
-                            json.push(angular.fromJson(v));
+                             json.push(angular.fromJson(v));
                           });
                           return json;
                         }
@@ -78,7 +125,7 @@ angular.module('weberApp')
                            }
 
                            $scope.previousdivs = previous_divs1;
-                           $scope.previousdivs;
+                           //$scope.previousdivs;
 
                         }
 
@@ -89,25 +136,38 @@ angular.module('weberApp')
                             minimize = typeof minimize !== 'undefined' ? minimize : false;
                             maximize = typeof maximize !== 'undefined' ? maximize : true;
 
-                            console.log(id+height+minimize+maximize)
+                            var json = {};
 
-                            json = {
-                              name:name,
-                              id: id,
-                              minimize:minimize,
-                              maximize:maximize,
-                              right:0,
-                              height:height
+                            for(k in $scope.chatusers){
+                                if($scope.chatusers[k] != null
+                                            && typeof $scope.chatusers[k]._id != undefined
+                                            && $scope.chatusers[k].name != undefined
+                                            && $scope.chatusers[k].picture != undefined){
+
+                                    json = {
+                                      name:$scope.chatusers[k].name.first,
+                                      id: id,
+                                      image:$scope.chatusers[k].picture.medium,
+                                      minimize:minimize,
+                                      maximize:maximize,
+                                      right:0,
+                                      height:height
+                                    }
+                                }
                             }
 
+
+
                             $window.sessionStorage.setItem(id, JSON.stringify(json));
+                            console.log("---------------got item------------")
+                            console.log($window.sessionStorage.getItem(id));
                             display_divs();
                             socket.emit('connect', {data: id});
 
                             chatactivity.loadMessages(user._id, id);
-                            console.log(chatactivity)
-                            $scope.loadMessages = chatactivity.messages;
-                            $scope.apply();
+                                 console.log(chatactivity)
+                                 $scope.loadedMessages = chatactivity.messages;
+                            //$scope.apply();
 
                         }
 

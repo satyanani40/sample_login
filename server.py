@@ -314,9 +314,17 @@ def creta_or_join(data):
 def send_to_room(data):
 
     print '===========message============='
-    print data['data']
+    print data['receiverid']
+    print data['senderid']
     print data['message']
-    emit('receive_messages',{'data': data['message'],'by':data['data']},room=data['data'])
+
+    emit('receive_messages',
+         {
+          'message': data['message'],
+          'senderid':data['senderid'],
+          'receiverid':data['receiverid']
+         },
+         room=data['receiverid'])
 
     """if(join_into_room(data['data'])):
         print request.namespace.rooms
@@ -340,7 +348,7 @@ def join_into_room(id):
 
 
 app.threaded=True
-socketio.run(app,host='192.168.0.101',port=8000)
+socketio.run(app,host='192.168.0.100',port=8000)
 
 # server sent events section
 """from redis import Redis

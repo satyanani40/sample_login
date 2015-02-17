@@ -57,8 +57,14 @@ angular.module('weberApp')
                 self.messages.push.apply(self.messages, response);
                 console.log(self.messages)
             }.bind(self));
-
         }
+
+        ChatActivity.prototype.pushMessage = function(message){
+            this.messages.unshift(message);
+            return this.messages;
+        }
+
+
 
 
 

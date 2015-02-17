@@ -30,7 +30,7 @@ angular.module('weberApp')
 
                         $scope.infinitePosts = new InfinitePosts(user_obj);
 			            //get all friends
-			            if (profileuser.friends.length !== 0) {
+			            if ( $scope.profileuser.friends.length !== 0) {
 
                             var params = '{"_id": {"$in":["'+($scope.profileuser.friends).join('", "') + '"'+']}}'
                             Restangular.all('people').getList({
