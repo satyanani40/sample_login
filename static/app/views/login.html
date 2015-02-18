@@ -82,11 +82,18 @@
                                     Sign in</button>
 
                             </div>
+
                         </div>
                     </form>
                 </div>
+                <div ng-if="error" class="panel-footer" style="color:red">
+                    <span style="color:red;">
+                        {{ error }}
+                    </span>
+                </div>
                 <div class="panel-footer">
-                    Not Registered?  <a href="#/signup">Register Here</a></div>
+                    Not Registered?  <a href="#/signup">Register Here</a>
+                </div>
             </div>
         </div>
     </div>

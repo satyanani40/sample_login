@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name weberApp.controller:SettingsCtrl
+ * @name weberApp.controller:MessagesCtrl
  * @description
- * # SettingsCtrl
+ * # MessagesCtrl
  * Controller of the weberApp
  */
 angular.module('weberApp')
-	.controller('SettingsCtrl', function($route, $scope, $auth, Restangular, InfinitePosts, $alert, $http, CurrentUser, UserService, fileUpload) {
+	.controller('MessagesCtrl', function($route, $scope, $auth, Restangular, InfinitePosts, $alert, $http, CurrentUser, UserService, fileUpload) {
 		$scope.UserService = UserService;
 		$http.get('/api/me', {
 			headers: {

@@ -8,7 +8,7 @@
  * Controller of the weberApp
  */
 angular.module('weberApp')
-	.controller('UserprofileCtrl', function($scope, $routeParams,$templateCache,
+	.controller('UserprofileCtrl', function($scope, $routeParams, $templateCache,
 	                                        Restangular, InfinitePosts, UserService,
 	                                        CurrentUser, FriendsNotific, friendsActivity) {
 

@@ -120,8 +120,23 @@ angular
 					}
 				}
 			})
+			.when('/messages', {
+				templateUrl: '/static/app/views/messages.html',
+				controller: 'MessagesCtrl',
+				resolve: {
+					authenticated: function($location, $auth) {
+						if (!$auth.isAuthenticated()) {
+							return $location.path('/login');
+						}
+					}
+				}
+			})
 			.when('/emaildetails', {
 				templateUrl: '/static/app/views/emaildetails.html'
+			})
+			.when('/confirm_account/users/:userId', {
+				templateUrl:'/static/app/views/confirm_email.html',
+				controller:'EmailCtrl'
 			})
 			.when('/signup', {
 				templateUrl: '/static/app/views/signup.html',

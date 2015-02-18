@@ -8,7 +8,7 @@
  * Controller of the weberApp
  */
 angular.module('weberApp')
-	.controller('SignupCtrl', function($scope, $auth, $location) {
+	.controller('SignupCtrl', function($scope, $auth, $location, $alert) {
 		$scope.registerUser = function() {
 			$auth.signup({
 				email: $scope.formData.email,
@@ -19,6 +19,15 @@ angular.module('weberApp')
 			}).then(function(response) {
 				console.log(response.data);
 				$location.path('/emaildetails')
+			}, function(error) {
+				$scope.error = error;
+				$alert({
+					title: 'Registration Failed: ',
+					content: error.data.error,
+					placement: 'top',
+					type: 'danger',
+					show: true
+				});
 			});
 		};
 	}).directive('validPasswordC', function () {

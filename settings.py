@@ -246,7 +246,13 @@ people = {
             'type':'boolean',
             'default':False
         },
-
+        'confirmed':{
+            'type':'boolean',
+            'default':False
+        },
+        'random_string':{
+            'type':'string'
+        },
         'notifications': {
             'type': 'list',
             'schema': {
