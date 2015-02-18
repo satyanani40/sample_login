@@ -82,12 +82,15 @@
                         <div class="panel-body">
 							<ul class="chat">
 								<li class="left clearfix" ng-repeat="message in loadedMessages"
-                                        ng-if="message.sender._id == previousdiv.id || message.receiver._id == previousdiv.id"
+
+                                        <!--ng-if="message.sender._id == previousdiv.id || message.receiver._id == previousdiv.id"-->
                                         >
                                     <span class="chat-img pull-left">
                                         <a href="">
                                             <img src="{{ message.sender.picture.medium }}"
+
                                              style="width:35px" alt="User Avatar" class="img-circle" />
+
                                         </a>
                                     </span>
 									<div class="chat-body clearfix">
@@ -95,6 +98,7 @@
 											<strong class="" style="font-size:12px">
                                                 <a href="">
                                                     {{ message.sender.name.first }}
+                                                     {{ previousdiv.id }}
                                                 </a>
                                             </strong>
                                             <small class="pull-right text-muted" style="opacity:0.60;font-size:10px">

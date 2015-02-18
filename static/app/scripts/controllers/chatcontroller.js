@@ -23,7 +23,8 @@ angular.module('weberApp')
                                 $scope.chatusers = data;
                             });
                          }
-						var socket = io.connect('http://192.168.0.100:8000');
+
+						var socket = io.connect('http://127.0.0.1:8000');
 
 						socket.on('connect', function() {
 							socket.emit('connect', {data: user._id});
@@ -39,6 +40,7 @@ angular.module('weberApp')
                          socket.on('receive_messages', function(msg) {
                               new_message = {}
                               if(user._id == msg.senderid){
+
                                 new_message = {
                                               sender :{
                                                 name:{
@@ -120,16 +122,17 @@ angular.module('weberApp')
                         }
 
                         function display_divs(){
-                           previous_divs1 = getData();
+                           previous_divs = getData();
                            var count = 300;
 
-                           for(k in previous_divs1){
-                                previous_divs1[k].right = count;
+                           for(k in previous_divs){
+                                previous_divs[k].right = count;
                                 count = count+300;
                            }
 
-                           $scope.previousdivs = previous_divs1;
-                           //$scope.previousdivs;
+                           $scope.previousdivs = previous_divs;
+                           console.log('preivous divs =============')
+                           console.log($scope.previousdivs);
 
                         }
 
@@ -168,8 +171,9 @@ angular.module('weberApp')
                             socket.emit('connect', {data: id});
 
                             chatactivity.loadMessages(user._id, id);
-                                $scope.loadedMessages = chatactivity.messages;
-                            //$scope.apply();
+
+                            $scope.loadedMessages =  chatactivity.messages;
+                            console.log($scope.loadedMessages)
 
                         }
 

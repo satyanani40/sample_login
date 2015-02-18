@@ -55,6 +55,7 @@ angular.module('weberApp')
                 embedded:params2
             }).then(function(response){
                 self.messages.push.apply(self.messages, response);
+                console.log('-------------loading messages-----------')
                 console.log(self.messages)
             }.bind(self));
         }
@@ -63,10 +64,5 @@ angular.module('weberApp')
             this.messages.unshift(message);
             return this.messages;
         }
-
-
-
-
-
     return ChatActivity;
     });
