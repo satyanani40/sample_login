@@ -8,7 +8,7 @@
                         <h5 style="margin-top: 5px;margin-bottom: 5px;">
                             <i class="glyphicon glyphicon-user" style="top:2px"></i>&nbsp;
                             Online Friends
-                            <a  class="pull-right" style="color:#888;"><h6>30 Online</h6></a>
+                            <a  class="pull-right" style="color:#888;"><h6>{{ chatnotification }}</h6></a>
                         </h5>
                     </div>
                 </div>
@@ -51,6 +51,7 @@
                                 <a href="">
                                     {{ previousdiv.name }}
                                 </a>
+                                {{ chatdivnotification }}
                             </div>
                             <div class="col-sm-3">
                                 <span>
@@ -80,8 +81,9 @@
 
                         <div class="panel-body">
 							<ul class="chat">
-								<li class="left clearfix" ng-repeat="message in loadedMessages">
-
+								<li class="left clearfix" ng-repeat="message in loadedMessages"
+                                        ng-if="message.sender._id == previousdiv.id || message.receiver._id == previousdiv.id"
+                                        >
                                     <span class="chat-img pull-left">
                                         <a href="">
                                             <img src="{{ message.sender.picture.medium }}"

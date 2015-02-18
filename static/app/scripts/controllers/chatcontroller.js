@@ -37,36 +37,42 @@ angular.module('weberApp')
                         });
 
                          socket.on('receive_messages', function(msg) {
-
-                              console.log(msg.senderid);
-
-                                new_message = {}
+                              new_message = {}
                               if(user._id == msg.senderid){
                                 new_message = {
                                               sender :{
                                                 name:{
                                                     first:user.name.first
-                                                }
-                                              },
-                                              sender :{
+                                                },
                                                 picture :{
                                                     medium:user.picture.medium
 
-                                                }
+                                                },
+                                                _id:msg.senderid
                                               },
+
+                                              receiver:{
+                                                _id:msg.receiverid
+                                              },
+
                                               message:msg.message
                                 }
                               }else{
-                                if($window.sessionStorage.getItem(msg.senderid) == null){
-                                    $scope.on_chatdiv_message = 1;
 
-                                }else{
-                                    $scope.on_chatdiv_message = null;
-                                    details = JSON.parse($window.sessionStorage.getItem(msg.senderid));
+                                details = JSON.parse($window.sessionStorage.getItem(msg.senderid));
+
+                                if($window.sessionStorage.getItem(msg.senderid) == null){
+                                    $scope.chatnotification = 'New_Message';
+
+                                }else if(!(details.minimize)){
+
+                                    $scope.chatnotifcation = null;
+                                    $scope.chatdivnotification = null;
+
                                         new_message = {
                                                   sender :{
                                                     name:{
-                                                        first:JSON.parse(details).name
+                                                        first:details.name
                                                     }
                                                   },
                                                   sender :{
@@ -77,15 +83,14 @@ angular.module('weberApp')
                                                   },
                                                   message:msg.message
                                     }
-                                }
+                                }else if(details.minimize){
+                                    $scope.chatdivnotification = 'new_Message';
+
+                                }else{}
 
                               }
 
-
-
                               var data = chatactivity.pushMessage(new_message);
-                              console.log(data);
-
                               $scope.$apply(function(){
                                 $scope.loadedMessages = data;
                               });
@@ -115,7 +120,6 @@ angular.module('weberApp')
                         }
 
                         function display_divs(){
-                           console.log('======calling display divs========')
                            previous_divs1 = getData();
                            var count = 300;
 
@@ -142,7 +146,8 @@ angular.module('weberApp')
                                 if($scope.chatusers[k] != null
                                             && typeof $scope.chatusers[k]._id != undefined
                                             && $scope.chatusers[k].name != undefined
-                                            && $scope.chatusers[k].picture != undefined){
+                                            && $scope.chatusers[k].picture != undefined
+                                            && $scope.chatusers[k]._id == id){
 
                                     json = {
                                       name:$scope.chatusers[k].name.first,
@@ -159,14 +164,11 @@ angular.module('weberApp')
 
 
                             $window.sessionStorage.setItem(id, JSON.stringify(json));
-                            console.log("---------------got item------------")
-                            console.log($window.sessionStorage.getItem(id));
                             display_divs();
                             socket.emit('connect', {data: id});
 
                             chatactivity.loadMessages(user._id, id);
-                                 console.log(chatactivity)
-                                 $scope.loadedMessages = chatactivity.messages;
+                                $scope.loadedMessages = chatactivity.messages;
                             //$scope.apply();
 
                         }
@@ -184,6 +186,7 @@ angular.module('weberApp')
                             $scope.newchatdiv(id, name,'92px',true,false);
                         }
                         $scope.maximize = function(id){
+                            $scope.chatdivnotification = null;
                             var name = JSON.parse($window.sessionStorage.getItem(id)).name
                             $window.sessionStorage.removeItem(id);
                             $scope.newchatdiv(id, name, 'auto ',false,true);
