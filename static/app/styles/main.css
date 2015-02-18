@@ -270,12 +270,12 @@ body {
 .messages-scroll {
     overflow-y: hidden;
     overflow-x: hidden;
-    height:500px;
+    height:auto;
 }
 .messages-scroll:hover {
     overflow-y: scroll;
     overflow-x: hidden;
-    height:500px;
+    height:auto;
 }
 
 /* Let's get this party started */
