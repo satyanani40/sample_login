@@ -42,27 +42,64 @@ angular.module('weberApp')
         }
 
         ChatActivity.prototype.loadMessages = function(user1, user2){
-            this.messages = [];
+
             var self = this;
-            var params =  '{ "$or" : ['+
-                '{ "$and" : [ { "sender" : "'+user1+'" }, { "receiver" : "'+user2+'" } ] },'+
-                '{ "$and" : [ { "sender" : "'+user2+'" }, { "receiver": "'+user1+'" }  ] }'+
-            ']}';
+            var lastid = null;
+
+            for(k in this.messages){
+                if(
+                 (this.messages[k].sender._id == user1 &&
+                 this.messages[k].receiver._id == user2)
+                   ||
+                 (this.messages[k].sender._id == user2 &&
+                 this.messages[k].receiver._id == user1)
+                )
+                {
+                    console.log('------------messge ids---')
+                    if(this.messages[k]._id === undefined){
+                        this.messages.splice(k,1)
+                    }
+
+                    if(lastid == null)
+                        lastid = this.messages[k]._id;
+
+                    if(lastid < this.messages[k]._id)
+                        lastid = this.messages[k]._id;
+                }
+            }
+
+            var params = null;
+
+            if(lastid != null){
+
+                 params =  '{"$and":['+
+                '{ "$or" : ['+
+                    '{ "$and" : [ { "sender" : "'+user1+'" }, { "receiver" : "'+user2+'" } ] },'+
+                    '{ "$and" : [ { "sender" : "'+user2+'" }, { "receiver": "'+user1+'" }  ] }'+
+                ']},{"_id":{"$gt":"'+lastid+'"}}]}';
+            }else{
+                params =  '{ "$or" : ['+
+                    '{ "$and" : [ { "sender" : "'+user1+'" }, { "receiver" : "'+user2+'" } ] },'+
+                    '{ "$and" : [ { "sender" : "'+user2+'" }, { "receiver": "'+user1+'" }  ] }'+
+                ']}';
+            }
+
+
             var params2 = '{"sender":1,"receiver":1}'
-            console.log(params)
+
             Restangular.all('messages').getList({
                 where:params,
-                embedded:params2
+                embedded:params2,
+                seed:Math.random()
             }).then(function(response){
                 self.messages.push.apply(self.messages, response);
-                console.log('-------------loading messages-----------')
-                console.log(self.messages)
             }.bind(self));
         }
 
         ChatActivity.prototype.pushMessage = function(message){
-            this.messages.unshift(message);
+            this.messages.push(message);
             return this.messages;
         }
+
     return ChatActivity;
     });
