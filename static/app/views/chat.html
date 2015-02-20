@@ -6,123 +6,20 @@
                   wb-affix="150">
                 <div class="panel-body messages-scroll" style="padding:0px;margin-bottom:0px;">
                     <div class="list-group" style="margin-bottom:0px;">
-                        <a href="" class="list-group-item list-group-border">
+                        <a style="cursor:pointer;" class="list-group-item list-group-border"
+                                 ng-repeat="chatuser in chatusers" id="{{chatuser._id}}"
+                                 name="{{ chatuser.name.first }} {{ chatuser.name.last }}" addchatdiv>
                             <div class="row">
                                 <div class="col-sm-2 colpadding">
-                                    <img src="http://api.randomuser.me/portraits/women/21.jpg" style="width:40px;">
+                                    <img src="{{ chatuser.picture.thumbnail}}" alt="" style="width:40px;border-radius:50%;">
                                 </div>
-                                <div class="col-sm-10 colpadding">
-                                    <h5>Surya Chowdary Muppalla</h5>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="list-group-item list-group-border">
-                            <div class="row">
-                                <div class="col-sm-2 colpadding">
-                                    <img src="http://api.randomuser.me/portraits/men/28.jpg" style="width:40px;">
-                                </div>
-                                <div class="col-sm-10 colpadding">
-                                    <h5>Ashok Raj Bathu</h5>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="list-group-item list-group-border">
-                            <div class="row">
-                                <div class="col-sm-2 colpadding">
-                                    <img src="http://api.randomuser.me/portraits/men/66.jpg" style="width:40px;">
-                                </div>
-                                <div class="col-sm-10 colpadding">
-                                    <h5>Vegeshna Satyanarayana</h5>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="list-group-item list-group-border">
-                            <div class="row">
-                                <div class="col-sm-2 colpadding">
-                                    <img src="http://api.randomuser.me/portraits/women/58.jpg" style="width:40px;">
-                                </div>
-                                <div class="col-sm-10 colpadding">
-                                    <h5>Ashok Raj Bathu</h5>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="list-group-item list-group-border">
-                            <div class="row">
-                                <div class="col-sm-2 colpadding">
-                                    <img src="http://api.randomuser.me/portraits/men/58.jpg" style="width:40px;">
-                                </div>
-                                <div class="col-sm-10 colpadding">
-                                    <h5>Vegeshna Satyanarayana</h5>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="list-group-item list-group-border">
-                            <div class="row">
-                                <div class="col-sm-2 colpadding">
-                                    <img src="http://api.randomuser.me/portraits/men/76.jpg" style="width:40px;">
-                                </div>
-                                <div class="col-sm-10 colpadding">
-                                    <h5>Vegeshna Satyanarayana</h5>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="list-group-item list-group-border">
-                            <div class="row">
-                                <div class="col-sm-2 colpadding">
-                                    <img src="http://api.randomuser.me/portraits/men/66.jpg" style="width:40px;">
-                                </div>
-                                <div class="col-sm-10 colpadding">
-                                    <h5>Vegeshna Satyanarayana</h5>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="list-group-item list-group-border">
-                            <div class="row">
-                                <div class="col-sm-2 colpadding">
-                                    <img src="http://api.randomuser.me/portraits/women/58.jpg" style="width:40px;">
-                                </div>
-                                <div class="col-sm-10 colpadding">
-                                    <h5>Ashok Raj Bathu</h5>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="list-group-item list-group-border">
-                            <div class="row">
-                                <div class="col-sm-2 colpadding">
-                                    <img src="http://api.randomuser.me/portraits/women/8.jpg" style="width:40px;">
-                                </div>
-                                <div class="col-sm-10 colpadding">
-                                    <h5>Ashok Raj Bathu</h5>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="list-group-item list-group-border">
-                            <div class="row">
-                                <div class="col-sm-2 colpadding">
-                                    <img src="http://api.randomuser.me/portraits/men/98.jpg" style="width:40px;">
-                                </div>
-                                <div class="col-sm-10 colpadding">
-                                    <h5>Vegeshna Satyanarayana</h5>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="list-group-item list-group-border">
-                            <div class="row">
-                                <div class="col-sm-2 colpadding">
-                                    <img src="http://api.randomuser.me/portraits/women/38.jpg" style="width:40px;">
-                                </div>
-                                <div class="col-sm-10 colpadding">
-                                    <h5>Ashok Raj Bathu</h5>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="" class="list-group-item list-group-border">
-                            <div class="row">
-                                <div class="col-sm-2 colpadding">
-                                    <img src="http://api.randomuser.me/portraits/men/28.jpg" style="width:40px;">
-                                </div>
-                                <div class="col-sm-10 colpadding">
-                                    <h5>Vegeshna Satyanarayana</h5>
+                                <div class="col-sm-10 ">
+                                    <h5 style="opacity:0.70;margin-top:0px;">
+                                        {{ chatuser.name.first }} {{ chatuser.name.last }}
+                                        <span class="pull-right">
+                                            <small style="opacity:0.50">10/11/2012</small>
+                                        </span>
+                                    </h5>
                                 </div>
                             </div>
                         </a>
@@ -175,57 +72,60 @@
                     </div>
 
 
-                        <div class="panel-body">
-							<ul class="chat">
-								<li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <a href="">
-                                            <img src="http://api.randomuser.me/portraits/men/90.jpg"
-                                             style="width:35px" alt="User Avatar" class="img-circle" />
-                                        </a>
-                                    </span>
-									<div class="chat-body clearfix">
-										<div class="header">
-											<strong class="" style="font-size:12px">
+                        <div class="panel-body messages-scroll" style="height:230px">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="jumbotron" style="padding:10px;margin-bottom:7px;">
+                                        <div class="row">
+                                            <div class="col-sm-2">
                                                 <a href="">
-                                                    Jack Sparrow
+                                                    <img src="http://api.randomuser.me/portraits/women/29.jpg"
+                                                        style="width:30px;border-radius:50%;">
                                                 </a>
-                                            </strong>
-                                            <small class="pull-right text-muted" style="opacity:0.60;font-size:10px">
-                                                <span class="glyphicon glyphicon-time"></span>
-                                                14 mins ago
-                                            </small>
-										</div>
-										<p style="font-size:12px">
-											Lorem ipsum dolor sit amet edit, consectetur adipiscing elit.
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <h6>
+                                                    Etiam vitae dui. Lacus donec  vulputate
+                                                    dis justo porta felis dui.
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="jumbotron" style="padding:10px;margin-bottom:7px;">
+                                        <div class="row">
 
-										</p>
-									</div>
-								</li>
-								<li class="right clearfix">
-                                    <span class="chat-img pull-right">
-                                        <img src="http://api.randomuser.me/portraits/women/44.jpg"
-                                             style="width:35px" alt="User Avatar" class="img-circle" />
-                                    </span>
-									<div class="chat-body clearfix">
-										<div class="header">
-											<small class=" text-muted" style="opacity:0.60;font-size:10px">
-                                                <span class="glyphicon glyphicon-time"></span>
-                                                15 mins ago
-                                            </small>
-											<strong class="pull-right " style="font-size:12px">
+                                            <div class="col-sm-10">
+                                                <h6>
+                                                    Etiam vitae dui. Lacus donec  vulputate
+                                                    dis justo porta felis dui.
+                                                </h6>
+                                            </div>
+                                            <div class="col-sm-2 colpadding">
                                                 <a href="">
-                                                    Bhaumik Patel
+                                                    <img src="http://api.randomuser.me/portraits/women/29.jpg"
+                                                        style="width:30px;border-radius:50%;">
                                                 </a>
-                                            </strong>
-										</div>
-										<p style="font-size:12px">
-											Lorem ipsum dolor sit amet edit, consectetur adipiscing elit.
-
-										</p>
-									</div>
-								</li>
-							</ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="jumbotron" style="padding:10px;margin-bottom:7px;">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <a href="">
+                                                    <img src="http://api.randomuser.me/portraits/women/29.jpg"
+                                                        style="width:30px;border-radius:50%;">
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <h6>
+                                                    Etiam vitae dui. Lacus donec  vulputate
+                                                    dis justo porta felis dui.
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 						</div>
 						<div class="panel-footer">
 							<div class="input-group">

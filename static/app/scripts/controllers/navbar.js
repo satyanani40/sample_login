@@ -7,7 +7,7 @@
  * # NavbarCtrl
  * Controller of the weberApp
  */
-/*angular.module('weberApp')
+angular.module('weberApp')
 	.controller('NavbarCtrl', function($scope, $auth, CurrentUser, $alert, $location, UserService) {
 
 
@@ -33,4 +33,4 @@
 			return $auth.isAuthenticated();
 		};
 
-	});*/
+	});

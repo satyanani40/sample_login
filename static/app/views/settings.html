@@ -162,15 +162,18 @@
                                             <h6>New password:</h6>
                                         </div>
                                         <div class="col-sm-5 colpadding">
-                                            <input class="form-control input-sm" type="password" placeholder="Enter password"
-                                                       id="password" name="password" ng-model="formData.password" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" required  />
-                                            <span ng-show="myForm.password.$error.required && myForm.password.$dirty" style="color:red">
+                                            <input type="password" id="pw1" name="pw1" class="form-control input-sm" placeholder="enter new password"
+                                                   ng-model="pw1" ng-required="" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" />
+                                            <span ng-show="myForm.pw1.$error.required && myForm.pw1.$dirty"
+                                                  style="color:red;font-size:11px;">
                                                 required
                                             </span>
-                                            <span ng-show="!myForm.password.$error.required && (myForm.password.$error.minlength || myForm.password.$error.maxlength) && myForm.password.$dirty" style="color:red">
+                                            <span ng-show="!myForm.pw1.$error.required && (myForm.pw1.$error.minlength || myForm.pw1.$error.maxlength) && myForm.pw1.$dirty"
+                                                  style="color:red;font-size:11px;">
                                                 Passwords must be between 8 and 20 characters.
                                             </span>
-                                            <span ng-show="!myForm.password.$error.required && !myForm.password.$error.minlength && !myForm.password.$error.maxlength && myForm.password.$error.pattern && myForm.password.$dirty" style="color:red">
+                                            <span ng-show="!myForm.pw1.$error.required && !myForm.pw1.$error.minlength && !myForm.pw1.$error.maxlength && myForm.pw1.$error.pattern && myForm.pw1.$dirty"
+                                                  style="color:red;font-size:11px;">
                                                 Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)
                                             </span>
                                         </div>
@@ -180,13 +183,15 @@
                                             <h6>Re-enter new password:</h6>
                                         </div>
                                         <div class="col-sm-5 colpadding">
-                                            <input type="password" class="form-control input-sm" placeholder="Re enter password"
-                                                       id="password_c" name="password_c" ng-model="formData.password_c" valid-password-D required  />
-                                            <span ng-show="myForm.password_c.$error.required && myForm.password_c.$dirty" style="color:red">
+                                            <input type="password" id="pw2" name="pw2"  class="form-control input-sm" placeholder="Re-enter new password"
+                                                   ng-model="pw2" ng-required="" pw-check="pw1" />
+                                            <div class="msg-block" ng-show="myForm.$error">
+                                                <span class="msg-error" ng-show="myForm.pw2.$error.pwmatch" style="color:red;font-size:11px;">
+                                                    Passwords don't match.
+                                                </span>
+                                            </div>
+                                            <span ng-show="myForm.pw2.$error.required && myForm.pw2.$dirty" style="color:red">
                                                 Please confirm your password.
-                                            </span>
-                                            <span ng-show="!myForm.password_c.$error.required && myForm.password_c.$error.noMatch && myForm.password.$dirty" style="color:red">
-                                                Passwords do not match.
                                             </span>
                                         </div>
                                     </div>

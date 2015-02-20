@@ -54,15 +54,17 @@ angular.module('weberApp')
 			};
 
 		});
-	})
-	.directive('validPasswordD', function () {
+	}).directive('pwCheck', [function () {
     return {
         require: 'ngModel',
-        link: function (scope, elm, attrs, ctrl) {
-            ctrl.$parsers.unshift(function (viewValue, $scope) {
-                var noMatch = viewValue != scope.myForm.password.$viewValue
-                ctrl.$setValidity('noMatch', !noMatch)
-                })
-            }
+        link: function (scope, elem, attrs, ctrl) {
+            var firstPassword = '#' + attrs.pwCheck;
+            elem.add(firstPassword).on('keyup', function () {
+                scope.$apply(function () {
+                    // console.info(elem.val() === $(firstPassword).val());
+                    ctrl.$setValidity('pwmatch', elem.val() === $(firstPassword).val());
+                });
+            });
         }
-    });
+    }
+}]);

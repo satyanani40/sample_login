@@ -2,7 +2,7 @@
     position: fixed;
     bottom: 0px;
     right:0px;
-    width:300px;
+    width:270px;
     padding-right: 0px !important;
 }
 
@@ -12,4 +12,43 @@
     position: fixed;
     bottom: 0px;
 }
+
+
+/*===============================================*/
+/* css for the scrollbar activities */
+.messages-scroll {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    height:;
+}
+.messages-scroll:hover {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height:;
+}
+
+/* Let's get this party started */
+.messages-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.messages-scroll::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Handle */
+.messages-scroll::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #dcdcdc;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+.messages-scroll::-webkit-scrollbar-thumb:window-inactive {
+	background: #dcdcdc;
+}
+
+/*=================================================*/
 
