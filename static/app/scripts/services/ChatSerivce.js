@@ -45,37 +45,37 @@ angular.module('weberApp')
         ChatActivity.prototype.loadMessages = function(user1, user2){
             var self = this;
             var lastid = null;
+
             console.log('---------------------messages----------------')
             console.log(this.messages)
 
+                for(k in this.messages){
 
-            for(k in this.messages){
-                if(
-                 (
-                 this.messages[k].sender._id == user1 &&
-                 this.messages[k].receiver._id == user2
-                 )
-                   ||
-                 (this.messages[k].sender._id == user2 &&
-                 this.messages[k].receiver._id == user1)
-                )
-                {
-                    console.log('------------checking data---')
-                    //console.log(this.messages[k])
+                    if(
+                     (typeof this.messages[k].sender   !== "undefined") &&
+                     (typeof this.messages[k].receiver !== "undefined") &&
+                     ((
+                     this.messages[k].sender._id == user1 &&
+                     this.messages[k].receiver._id == user2
+                     )
+                       ||
+                     (this.messages[k].sender._id == user2 &&
+                     this.messages[k].receiver._id == user1
+                     ))
+                    )
+                    {
 
-                    if(this.messages[k]._id === undefined){
-                        this.messages.splice(k,1)
+                        if(this.messages[k]._id === undefined){
+                            this.messages.splice(k,1)
+                        }
+
+                        if(lastid == null)
+                            lastid = this.messages[k]._id;
+
+                        if(typeof this.messages[k] !== 'undefined' && lastid < this.messages[k]._id)
+                            lastid = this.messages[k]._id;
                     }
-
-                    if(lastid == null)
-                        lastid = this.messages[k]._id;
-
-                    console.log(typeof this.messages[k])
-
-                    if(typeof this.messages[k] !== 'undefined' && lastid < this.messages[k]._id)
-                        lastid = this.messages[k]._id;
                 }
-            }
 
             var params = null;
 
@@ -147,7 +147,9 @@ angular.module('weberApp')
             var self = this;
             for(k in self.latestMessages){
                 if(self.latestMessages[k].sender._id == senderid  &&
-                   self.latestMessages[k].receiver._id == this.currentuser._id){
+                   self.latestMessages[k].receiver._id == this.currentuser._id &&
+                   self.latestMessages[k].seen == false
+                   ){
                     console.log('-------------recevied message-----------')
                     console.log(self.latestMessages[k]._id)
                     Restangular.one("messages",self.latestMessages[k]._id).patch(

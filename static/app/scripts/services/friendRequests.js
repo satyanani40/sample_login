@@ -27,11 +27,8 @@ angular.module('weberApp')
         friendsActivity.prototype.getRelation = function(){
 
                 if(this.status === null){
-
                     if(this.profileuser.friends.indexOf(this.currentuser._id) > -1){
-
                         this.status = 'unfriend';
-
                     }
                 }
 
@@ -108,9 +105,6 @@ angular.module('weberApp')
                            'friends': this.profileuser.friends
                         }).then(function(response){
                             console.log("deleted at profile friend")
-                            console.log(response)
-
-
                         })
 
                     }
@@ -125,9 +119,6 @@ angular.module('weberApp')
                         'friends': this.currentuser.friends
                     }).then(function(response){
                         console.log("deleted at current friend")
-                        console.log(response)
-
-
                     });
                 }
             }

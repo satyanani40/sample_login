@@ -19,6 +19,7 @@ angular.module('weberApp')
 			var passReq = Restangular.one("people", JSON.parse(user_id)).get().then(function(result) {
               $scope.user = result;
             });
+
             $scope.updateUsername = function() {
                 $scope.user.patch({
                     'username':$scope.u_username
@@ -33,8 +34,7 @@ angular.module('weberApp')
 				console.log('file is ' + JSON.stringify(file));
 				var uploadUrl = "/fileUpload";
 				fileUpload.uploadFileToUrl(file, uploadUrl,$scope.user);
-
-				$route.reload();
+                $route.reload();
 			};
 
 			$scope.updateEmail = function() {
@@ -54,4 +54,17 @@ angular.module('weberApp')
 			};
 
 		});
-	});
+	}).directive('pwCheck', [function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, elem, attrs, ctrl) {
+            var firstPassword = '#' + attrs.pwCheck;
+            elem.add(firstPassword).on('keyup', function () {
+                scope.$apply(function () {
+                    // console.info(elem.val() === $(firstPassword).val());
+                    ctrl.$setValidity('pwmatch', elem.val() === $(firstPassword).val());
+                });
+            });
+        }
+    }
+}]);

@@ -68,8 +68,9 @@
         <div ng-repeat="previousdiv in previousdivs" class="col-md-3 colpadding chat_divs"
              style="right:{{ previousdiv.right}}px;height:{{ previousdiv.height}}"
              wb-affix="150">
-            <div class="well" style="border: 1px solid #C2C0C0;padding:0px;margin-bottom:0px;">
-                <div class="panel-heading" style="border-bottom:1px solid #dcdcdc;background-color:#c9dce4">
+            <div class="" style="margin-bottom:0px;cursor:default;border:none;">
+
+                <div class="" style="border:none;">
                     <div class="row">
                         <div class="col-sm-9">
                             <a href="">
@@ -99,37 +100,60 @@
                             </span>
                         </div>
                     </div>
+
+
                 </div>
-                <div class="panel-body messages-scroll" style="height:230px;">
-                    <div class="row" ng-repeat="message in loadedMessages"
+
+
+                    <div class="panel-heading messages-scroll"
+                         style="height:230px">
+                        <div class="row" ng-repeat="message in loadedMessages"
                                  ng-if="message.sender._id == previousdiv.id || message.receiver._id == previousdiv.id">
-                        <div class="col-sm-3 colpadding" style="width:45px;">
+                            <div class="col-sm-3 colpadding" style="width:45px;">
 
-                        <img class="img-responsive user-photo" style="width:40px"
-                             src="{{ message.sender.picture.medium }}">
+                            <img class="img-responsive user-photo" style="width:40px"
+                                 src="{{ message.sender.picture.medium }}">
 
-                        </div><!-- /col-sm-1 -->
+                            </div><!-- /col-sm-1 -->
 
-                        <div class="col-sm-9 colpadding">
-                            <div class="panel panel-default">
-                                <div class="panel-body" style="border-bottom:none !important;">
-                                <span class="text-muted">
-                                    {{ message.message }}
-                                </span>
-                            </div>
-                            </div><!-- /panel panel-default -->
-                        </div><!-- /col-sm-5 -->
+                            <div class="col-sm-9 colpadding">
+                                <div class="panel panel-default">
+                                    <div class="panel-body" style="border-bottom:none !important;">
+                                    <span class="text-muted">
+                                        {{ message.message }}
+                                    </span>
+                                </div>
+                                </div><!-- /panel panel-default -->
+                            </div><!-- /col-sm-5 -->
+                        </div>
                     </div>
-                </div>
-                <div class="panel-footer">
-                    <div class="input-group">
-                        <input id="send_{{ previousdiv.id }}" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-                        <span class="input-group-btn">
-                            <button class="btn btn-normal btn-sm" id="btn-chat" ng-click="send_message('{{ previousdiv.id }}')">
-                                Send</button>
-                        </span>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <input id="send_{{ previousdiv.id }}" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                            <span class="input-group-btn">
+                                <button class="btn btn-normal btn-sm" id="btn-chat" ng-click="send_message('{{ previousdiv.id }}')">
+                                    Send</button>
+                            </span>
+                        </div>
                     </div>
-                </div>
+
+
+                <!--<div class="list-group" style="margin-bottom:0px" >
+
+                   <textarea style="width: 289px;height: 212px;" id="text_{{previousdiv.id}}"></textarea>
+                    <a class="list-group-item"
+                       style="border-top-left-radius: 0px;border-top-right-radius: 0px;">
+                        <div class="input-group">
+                            <input  type="text" class="form-control input-sm"
+                                   placeholder="Search online friends..." id="send_{{previousdiv.id}}"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default btn-sm" id="btn-chat" ng-click="send_message('{{previousdiv.id}}')">
+                                    send
+                                </button>
+                            </span>
+                        </div>
+                    </a>
+                </div>-->
             </div>
         </div>
 

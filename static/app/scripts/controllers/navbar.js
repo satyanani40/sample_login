@@ -45,24 +45,19 @@ angular.module('weberApp')
 			}).success(function(user_id) {
 
 				Restangular.one('people',JSON.parse(user_id)).get({seed: Math.random()}).then(function(user) {
-
 				$scope.currentUser = user;
-
-
-
 				$scope.searchActivity = new SearchActivity(user);
 				var requested_peoples = [];
 				var accepted_peoples = [];
 
 				function get_friend_notifications(currentUser){
-
 					var notific = new FriendsNotific(currentUser);
 					notific.then(function(data){
 
 							accepted_peoples = [];
+
 							var currentuser = data
 							var k = null;
-
 							for (k in currentuser.notifications){
 								if(currentuser.notifications[k].seen == false){
 									requested_peoples.push(currentuser.notifications[k].friend_id)

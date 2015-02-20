@@ -21,6 +21,7 @@ angular.module('weberApp')
         link: function (scope, element, attrs) {
 
             element.click(function(){
+               alert('in directive')
                var html ='<cancelrequest><button ng-click="AddFriend()" class="btn btn-primary">AddFriend</button></cancelrequest>';
                var e =$compile(html)(scope);
                element.replaceWith(e);
@@ -28,7 +29,8 @@ angular.module('weberApp')
 
         }
     };
-}).directive('friends', function ($compile) {
+})
+.directive('friends', function ($compile) {
     return {
         restrict: 'E',
         replace: true,
@@ -41,7 +43,8 @@ angular.module('weberApp')
 
         }
     };
-}).directive('unfriend', function ($compile) {
+})
+.directive('unfriend', function ($compile) {
     return {
         restrict: 'E',
         replace: true,

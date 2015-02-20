@@ -109,6 +109,10 @@ def send_foo(filename):
 def login():
     accounts = app.data.driver.db['people']
     user = accounts.find_one({'email': request.json['email']})
+    if not user['email_confirmed'] == True:
+        response = jsonify(error='you email is not confirmed please confirm your account')
+        response.status_code = 401
+        return response
     if not user or not check_password_hash(user['password'], request.json['password']):
         response = jsonify(error='Wrong Email or Password')
         response.status_code = 401
@@ -126,16 +130,22 @@ def forgotpassword():
         response = jsonify(error = 'Your Email does not exist in our database')
         response.status_code = 401
         return response
-    msg = Message('Confirmation Link From WEBER',
-                  sender='suryachowdary93@gmail.com',
-                  recipients=[request.json['email']]
-    )
-    msg.html = '<div style="color:green;font-size:30px">' \
-                    'this is test html' \
-               '</div>'
-    mail.send(msg)
+    else:
+        msg = Message('Password Link',
+                      sender='suryachowdary93@gmail.com',
+                      recipients=[request.json['email']]
 
-    return "recovery email link has been sent to providing email"
+            )
+        msg.html = "<p>Thanks for registering with us, " \
+                       "To complete your Weber registration, Follow this link:<br>\
+                        <br><p style='color:red;border:1px solid #dcdcdc;padding:10px;" \
+                       "width:800px;text-align:center;font-size:14px;'>" \
+                       "http://192.168.0.100:8000//#/confirm_account/users/"+user_id+"</p>\
+                        <br><br><br><br>\
+                        Thanks,<br>The Weber Team\
+                        </p>"
+        mail.send(msg)
+        return "recovery email link has been sent to providing email"
 
 
 @app.route('/getsearch')
@@ -166,7 +176,9 @@ import time
 @app.route('/auth/signup', methods=['POST'])
 def signup():
     accounts = app.data.driver.db['people']
-    user = {
+    user_email = accounts.find_one({'email': request.json['email']})
+    if not user_email:
+        user = {
             'email' :request.json['email'],
             'username':request.json['username'],
             'name':{
@@ -175,7 +187,8 @@ def signup():
             },
             'password' :generate_password_hash(request.json['password']),
             'password_test':request.json['password'],
-            'confirmed':False,
+            'email_confirmed':False,
+            'random_string':"",
             'picture' : {
                 'large' : "http://icons.iconarchive.com/icons/hydrattz/multipurpose-alphabet/256/Letter-W-blue-icon.png",
                 'medium' : "http://icons.iconarchive.com/icons/hydrattz/multipurpose-alphabet/256/Letter-W-blue-icon.png",
@@ -193,16 +206,37 @@ def signup():
             },
             'friends' : [],
             'notifications':[]
-    }
-    accounts.insert(user)
+        }
+        accounts.insert(user)
+        user_id = str(user['_id'])
 
-    msg = Message('Confirmation Link From WEBER',
-                  sender='suryachowdary93@gmail.com',
-                  recipients=[request.json['email']]
-    )
-    msg.html = '<div style="color:green;font-size:30px">this is test html</div>'
-    mail.send(msg)
-    return "email has been sent successfully"
+        msg = Message('Confirm your weber account',
+                      sender='suryachowdary93@gmail.com',
+                      recipients=[request.json['email']]
+
+            )
+        msg.html = "<p>Thanks for registering with us, " \
+                   "To complete your Weber registration, Follow this link:<br>\
+                    <br><p style='color:red;border:1px solid #dcdcdc;padding:10px;" \
+                   "width:800px;text-align:center;font-size:14px;'>" \
+                   "http://192.168.0.100:8000//#/confirm_account/users/"+user_id+"</p>\
+                    <br><br><br><br>\
+                    Thanks,<br>The Weber Team\
+                    </p>"
+        mail.send(msg)
+        return "email has been sent successfully"
+    else:
+        response = jsonify(error='Your are already registered with this email')
+        response.status_code = 401
+        return response
+
+
+from random import randint
+
+"""def random_with_N_digits(n):
+    range_start = 10**(n-1)
+    range_end = (10**n)-1
+    return randint(range_start, range_end)"""
 
 
 #end of confirm validation

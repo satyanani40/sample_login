@@ -1,171 +1,166 @@
 <div navbar></div>
-<div class="container" style="width:">
-    <!--<div class="row">
-        <div class="col-sm-offset-4 col-sm-3" style="border-radius:50% !important;">
-            <div class="well" style="border-radius:50% !important;">
-                <h1 class="text-center" style="color: rgb(29, 159, 163);font-size:170px;">w</h1>
+<div class="container" style="">
+    <div class="row">
+        <div class="col-md-3 colpadding">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="fa fa-search" style="opacity:0.60;font-size:16px"></span>&nbsp;
+                    <strong>Surya</strong>
+                    Previous Searches
+                    <a href="" class="pull-right">
+                        <span class="label label-primary">
+                            {{ searchActivity.searchResult.length }}
+                        </span>
+                    </a>
+                </div>
+                <div class="panel-body" style="padding:0px;margin-bottom:0px">
+                    <div class="list-group" style="margin-bottom:0px">
+                        <a href="" class="list-group-item" ng-repeat="sresult in searchActivity.searchResult"
+                           style="border-top-left-radius: 0px;border-top-right-radius: 0px;">
+
+                            <div id="{{ sresult._id}}" my-directive>
+                                <div class="row">
+                                    <div class="col-sm-10" ng-model="checked">
+
+                                        <div style="overflow:hidden;text-overflow:ellipsis;">
+                                        {{ sresult.content }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2" ng-if="sresult.newResults != 0" >
+                                        <span class="label label-danger" id="notific{{ sresult._id}}">{{ sresult.newResults }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>-->
-    <div class="col-md-3 colpadding" wb-affix="150">
-        <div class="panel panel-primary" style="margin-bottom:0px;cursor:default;border:none;">
-            <div class="panel-heading" style="border:none;">
-                <h5 style="margin-top: 5px;margin-bottom: 5px;" class="text-center">
-                    <img style="width:28px;margin-top: -5px;border: 2px solid; margin-right: 5px;"
-                         class="pull-left img-circle" src="{{ searchActivity.user_obj.picture.medium}}" alt="">
-                    your Previous Searches
 
-                    <span class="badge badge-danger pull-right">{{ searchActivity.searchResult.length }}</span>
-                </h5>
-            </div>
-        </div>
-        <div class="list-group">
-
-            <a href="" class="list-group-item"
-               style="border-top-left-radius: 0px;border-top-right-radius: 0px;" ng-repeat="sresult in searchActivity.searchResult">
-                <div id="{{ sresult._id}}" my-directive>
-                    <div class="row">
-                        <div class="col-sm-10" ng-model="checked">
-                            <div style="overflow:hidden;text-overflow:ellipsis;">
-                            {{ sresult.content }}
+        <div class="col-md-6 colpadding">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal" method="post"  name="signupForm" ng-submit="searching()">
+                        <div class="form-group" style="margin-bottom:2px">
+                            <div class="col-sm-12">
+                                <input class="form-control"  type="text"  name="q" autocomplete ng-model="search"
+                                                placeholder="Search anything in Weber" ng-keyup="getSuggestions()"  autofocus  required/>
+                            </div>
+                            <div class="col-sm-4 col-sm-offset-4">
+                                <input ng-click = "registerUser()" type="submit" style="margin-top:10px" value="Weber Search"
+                                       class="btn btn-normal btn-md btn-block" >
                             </div>
                         </div>
-                        <div class="col-sm-2" ng-if="sresult.newResults != 0" >
-                            <span class="label label-danger" id="notific{{ sresult._id}}">{{ sresult.newResults }}</span>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5 style="margin-top:0px;margin-bottom:15px;">
+                                <i class="fa fa-user" style="opacity:0.60"></i>&nbsp;
+                                <strong>
+                                    Matched People
+                                </strong>
+                                 with you..
+                                <span class="pull-right">
+                                    Total {{ matchmeresults.total_matches }}
+                                </span>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="jumbotron" style="padding:0px" ng-repeat="rs in matchmeresults.mresults">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="panel panel-default" style="margin:0px">
+                                    <div class="panel-heading media" style="background-color:;">
+                                        <a class="pull-left" style="padding: 5px;" href="">
+                                            <img style="width:40px" class="media-object img-circle"
+                                                 src="{{ rs.author.picture.medium }}" alt="">
+                                        </a>
+                                        <span>
+                                            <strong>
+                                                <a href="" style="color:#333">
+                                                    {{ rs.author.name.first }}
+                                                </a>
+                                            </strong> Matched with you.
+                                            <br>
+                                            <small class="text-muted"><span class="glyphicon glyphicon-time"></span>
+                                                <span am-time-ago="post._created">{{ rs._updated }}</span>
+                                            </small>
+
+                                            <a href="" class="btn btn-sm btn-default pull-right">
+                                                Chat
+                                            </a>
+                                        </span>
+                                        <br>
+                                    </div>
+                                    <div class="panel-body">
+                                        <strong>
+                                            Keywords:
+                                        </strong>
+                                         {{ rs.content }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </a>
-        </div>
-    </div>
-    <div class="col-sm-7">
-        <div class="row" style="padding-top:;">
-            <div class="col-sm-12 panel">
+            </div>
 
-
-
-              <form method="post"  name="signupForm" ng-submit="searching()" >
-
-                  <div class="panel-default">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group"
-                                         ng-class="{ 'has-success' : signupForm.email.$valid && signupForm.email.$dirty, 'has-error' : signupForm.email.$invalid && signupForm.email.$dirty }">
-
-
-                                        <input class="form-control input-md" type="text"  name="q" autocomplete ng-model="search"
-                                                placeholder="Search anything in Weber" ng-keyup="getSuggestions()"  autofocus  required/>
-
-                                        <!--<ul>
-                                            <li ng-repeat="rs in rslts | filter:search ">
-                                                {{rs }}
-                                            </li>
-                                        </ul>-->
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-offset-4 col-sm-4">
-                                    <button ng-click = "registerUser()" type="submit"
-                                            class="btn btn-sm btn-md btn-block ">Search Weber
-                                    </button>
-                                </div>
-                            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5 style="margin-top:0px;margin-bottom:15px;">
+                                <i class="fa fa-user" style="opacity:0.60"></i>&nbsp;
+                                <strong>
+                                    Persons in weber
+                                </strong>
+                                 with you..
+                                <span class="pull-right">
+                                    Total {{ matchmeresults.totalNames }}
+                                </span>
+                            </h5>
                         </div>
-                  </div>
-              </form>
-            </div>
-        </div>
-        <div class="row" style="padding-top:20px;">
-
-            <div class="col-sm-offset-2 col-sm-7" style="padding-bottom:10px;">
-                <h4 class="text-center">
-                    <b>Matched</b>&nbsp;(total <b>{{ matchmeresults.total_matches }}</b>)
-                </h4>
-            </div>
-            <div class="col-sm-12 panel" style=""  >
-                <br>
-              <form method="post" ng-submit="signup()" name="signupForm">
-                  <div class="panel media panel-default" ng-repeat="rs in matchmeresults.mresults">
-
-                        <div class="media-body panel-heading">
-                            <a class="pull-left" style="padding: 5px;" href="">
-                                <img style="width:28px" class="media-object img-circle" src="{{ rs.author.picture.medium }}" alt="">
-                            </a>
-                            <strong><a href="">{{ rs.author.name.first }}</a> </strong> is matched with you.
-                            <br>
-                            <small class="text-muted"><span class="glyphicon glyphicon-time"></span>
-                                <span am-time-ago="post._created">{{ rs._updated }}</span></small>
-                            <br>
-                        </div>
-                        <p class="panel-body">{{ rs.content }}</p>
-                  </div>
-              </form>
-
-            </div>
-        </div>
-
-    <div class="row" style="padding-top:25px;" >
-        <div class="col-sm-offset-2 col-sm-7" style="padding-bottom:10px;">
-            <h4 class="text-center"><b>Persons</b>&nbsp;(total <b>{{ matchmeresults.totalNames }}</b>)</h4>
-        </div>
-        <div class="col-sm-12 panel">
-            <br>
-          <form method="post" ng-submit="signup()" name="signupForm">
-              <div class="panel media panel-default" ng-repeat="name in matchmeresults.searchNames">
-
-                    <div class="media-body panel-body">
-                        <a class="pull-left" style="padding: 5px;" href="">
-                           <img style="width:28px" class="media-object" src="{{ name.picture.medium }}" alt="">
-                        </a>
-                        <strong>
-                            <a href=""><h5><b style="color:#444;">
-                                {{ name.name.first }} {{ name.name.last }}</b></h5>
-                            </a>
-                        </strong>
                     </div>
-              </div>
-          </form>
+                    <div class="jumbotron" style="padding:0px" ng-repeat="name in matchmeresults.searchNames">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="panel panel-default" style="margin:0px">
+                                    <div class="media panel-heading" style="background-color:;">
+                                        <a class="pull-left" style="padding: 5px;" href="">
+                                            <img style="width:40px" class="media-object img-circle"
+                                                 src="{{ name.picture.medium }}" alt="">
+                                        </a>
+                                        <span>
+                                            <strong>
+                                                <a href="" style="color:#333">
+                                                    {{ name.name.first }} {{ name.name.last }}
+                                                </a>
+                                            </strong>
+                                            <br>
+                                            <small class="text-muted"><span class="glyphicon glyphicon-time"></span>
+                                                <span am-time-ago="post._created">{{ rs._updated }}</span>
+                                            </small>
 
-        <div class="row" style="padding-top:25px;" hidden>
-            <div class="col-sm-offset-2 col-sm-7" style="padding-bottom:10px;">
-                <h4 class="text-center"><b>Locations</b>&nbsp;(total <b>20</b>)</h4>
-            </div>
-            <div class="col-sm-12 panel">
-                <br>
-              <form method="post" ng-submit="signup()" name="signupForm">
-                  <div class="panel media panel-default">
-                        <div class="media-body panel-body">
-                            <a class="pull-left" style="padding:2px ;" href="">
-                                <i class="media-object glyphicon glyphicon-globe"></i>
-                            </a>
-                            <strong>
-                                <a href=""><b style="color:#444;padding-left:5px">
-                                    Hyderabad, Miyapur</b>
-                                </a>
-                            </strong>
+                                            <a href="" class="btn btn-sm btn-default pull-right">
+                                                Chat
+                                            </a>
+                                        </span>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                  </div>
-              </form>
-              <form method="post" ng-submit="signup()" name="signupForm">
-                  <div class="panel media panel-default">
-                        <div class="media-body panel-body">
-                            <a class="pull-left" style="padding:2px ;" href="">
-                                <i class="media-object glyphicon glyphicon-globe"></i>
-                            </a>
-                            <strong>
-                                <a href=""><b style="color:#444;padding-left:5px">
-                                    K.Zaddavaripalem, Guntur</b>
-                                </a>
-                            </strong>
-                        </div>
-                  </div>
-              </form>
+                    </div>
+                </div>
             </div>
+
         </div>
+
     </div>
 </div>
-
 <div chatbar></div>

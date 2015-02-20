@@ -28,8 +28,9 @@ body {
 
 .alert {
 	z-index: 1;
-	position: fixed;
-	right: 12px;
+	position:absolute;
+	top:0px;
+	right:10px;
 }
 
 .password-strength-indicator {
@@ -77,6 +78,14 @@ body {
 .colpadding {
 	padding-left: 5px !important;
 	padding-right: 5px !important;
+}
+.colpadding1 {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+
+.list-group-border{
+	border-radius:0px !important;
 }
 
 .profile {
@@ -255,3 +264,4 @@ body {
     padding: 7px 12px;
     pointer-events: none;
 }
+

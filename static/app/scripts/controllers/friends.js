@@ -15,19 +15,18 @@ angular.module('weberApp')
 				'Content-Type': 'application/json'
 			}
 		}).success(function(user_id) {
-			Restangular.one('people', JSON.parse(user_id)).get().then(function(user) {
+			Restangular.one('people',JSON.parse(user_id)).get().then(function(user) {
 				$scope.user = user;
 				$scope.infinitePosts = new InfinitePosts(user);
-				if (user.friends.length !== 0) {
-					Restangular.all('people').getList().then(function(friends) {
-						$scope.friends = friends;
+
+                if (user.friends.length !== 0) {
+
+				    var params = '{"_id": {"$in":["'+($scope.user.friends).join('", "') + '"'+']}}';
+
+					Restangular.all('people').getList({where :params}).then(function(friend) {
+						$scope.friends = friend;
 					});
 				}
-				$scope.function = function() {
-				    alert(hai)
-					$scope.infinitePosts.addPost($scope.new_post);
-					$scope.new_post = '';
-				};
 			});
 		});
 	});

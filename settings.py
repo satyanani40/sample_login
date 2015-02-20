@@ -152,13 +152,11 @@ message_schema = {
 messages = {
     'item_title':'messages',
     'schema':message_schema,
-
 }
 
 people = {
     # 'title' tag used in item links.
     'item_title': 'person',
-
     # by default the standard item entry point is defined as
     # '/people/<ObjectId>/'. We leave it untouched, and we also enable an
     # additional read-only entry point. This way consumers can also perform GET
@@ -167,7 +165,6 @@ people = {
         'url': 'regex("[\w]+")',
         'field': 'username'
     },
-
 
     # Schema definition, based on Cerberus grammar. Check the Cerberus project
     # (https://github.com/nicolaiarocci/cerberus) for details.
@@ -217,6 +214,12 @@ people = {
         },
         'gender': {
             'type': 'string',
+        },
+        'email_confirmed':{
+            'type':'boolean'
+        },
+        'password_random_string':{
+            'type':'string'
         },
         'location': {
             'type': 'dict',

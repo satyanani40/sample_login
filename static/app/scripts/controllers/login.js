@@ -18,14 +18,14 @@ angular.module('weberApp')
 			}).then(function(response) {
 				$auth.setToken(response.data.token);
 			}, function(error) {
-				alert("error");
-				$alert({
+				$scope.error = error.data.error;
+				/*$alert({
 					title: 'Login Failed: ',
 					content: error.data.error,
 					placement: 'top',
 					type: 'danger',
 					show: true
-				});
+				});*/
 			});
 		};
 	});

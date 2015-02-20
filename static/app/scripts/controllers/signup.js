@@ -8,17 +8,26 @@
  * Controller of the weberApp
  */
 angular.module('weberApp')
-	.controller('SignupCtrl', function($scope, $auth, $location) {
+	.controller('SignupCtrl', function($scope, $auth, $location, $alert) {
 		$scope.registerUser = function() {
 			$auth.signup({
 				email: $scope.formData.email,
 				password: $scope.formData.password,
 				firstname: $scope.formData.firstname,
 				lastname: $scope.formData.lastname,
-				username: $scope.formData.username
-			}).then(function() {
-				console.log("===========");
+				username: $scope.formData.firstname+$scope.formData.lastname
+			}).then(function(response) {
+				console.log(response.data);
 				$location.path('/emaildetails')
+			}, function(error) {
+				$scope.error = error;
+				$alert({
+					title: 'Registration Failed: ',
+					content: error.data.error,
+					placement: 'top',
+					type: 'danger',
+					show: true
+				});
 			});
 		};
 	}).directive('validPasswordC', function () {
