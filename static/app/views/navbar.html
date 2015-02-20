@@ -2,7 +2,7 @@
         <div class="container" style="width:;">
 
             <div class="navbar-header">
-                <a class="navbar-brand" href="/#/">
+                <a class="navbar-brand" href="/#/" ng-if="isAuthenticated()">
                     <span class="glyphicon glyphicon-film"></span>
                     <strong>Weber</strong>
                 </a>
@@ -12,8 +12,8 @@
                     <form role="form" style="margin-top: 8px;">
                         <div class="row">
                             <div class="col-xs-12">
-                                <div class="input-group input-group-md" ng-if="isAuthenticated()">
-                                    <input type="text" class="form-control" placeholder="Search friends or anything in weber" />
+                                <div class="input-group input-group-md">
+                                    <input type="text" class="form-control" placeholder="Search Friends or anything in weber" />
                                     <div class="input-group-btn">
                                         <button type="submit" class="btn">Search</button>
                                     </div><!-- /btn-group -->
@@ -21,60 +21,6 @@
                             </div><!-- /.col-xs-12 -->
                         </div><!-- /.row -->
                     </form>
-                    <!--<div class="row">
-                        <div class="col-sm-11">
-                            <div class="list-group" style="width: 540px;">
-                                <a href="" class="list-group-item" style="border-radius:0px;">
-                                    <div class="row">
-                                        <div class="col-sm-2" style="padding-right:0px">
-                                            <img src="http://api.randomuser.me/portraits/men/29.jpg"
-                                                 style="width:55px;">
-                                        </div>
-                                        <div class="col-sm-10" style="padding-left:0px">
-                                            <h5 style="margin-top:0px;opacity:0.70;">
-                                                <strong>Surya Chowdary Muppalla</strong>
-                                            </h5>
-                                            <h6 style="opacity:0.80;">
-                                                From Hyderabad
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="" class="list-group-item" style="border-radius:0px;">
-                                    <div class="row">
-                                        <div class="col-sm-2" style="padding-right:0px">
-                                            <img src="http://api.randomuser.me/portraits/men/99.jpg"
-                                                 style="width:55px;">
-                                        </div>
-                                        <div class="col-sm-10" style="padding-left:0px">
-                                            <h5 style="margin-top:0px;opacity:0.70;">
-                                                <strong>Vegeshna Satyanarayana</strong>
-                                            </h5>
-                                            <h6 style="opacity:0.80;">
-                                                From Komatilanka
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="" class="list-group-item" style="border-radius:0px;">
-                                    <div class="row">
-                                        <div class="col-sm-2" style="padding-right:0px">
-                                            <img src="http://api.randomuser.me/portraits/women/9.jpg"
-                                                 style="width:55px;">
-                                        </div>
-                                        <div class="col-sm-10" style="padding-left:0px">
-                                            <h5 style="margin-top:0px;opacity:0.70;">
-                                                <strong>Ashok Raj Bathu</strong>
-                                            </h5>
-                                            <h6 style="opacity:0.80;">
-                                                From Bhimavaram
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>-->
                 </div>
                 <ul class="nav navbar-nav pull-right" ng-if="!isAuthenticated()">
                     <li data-match-route="/login"><a href="#/login">Login</a>
@@ -86,7 +32,86 @@
                     <li><a href="#/weber_search">Match Me</a></li>
                     <li><a href="#/friends">Friends</a></li>
                     <li>
+                        <a ng-click="toggle = !toggle; getNewNotifcations()" style="cursor:pointer">
+                            <i class="glyphicon glyphicon-globe" style="font-size:17px;opacity:0.70;">
 
+                            </i>
+
+                                <label class="label label-danger" ng-if="newnotific"
+                                       style="position:absolute;font-size:10px;top: 5px;right: 0px;">
+                                        {{ newnotific }}
+                                </label>
+
+                        </a>
+
+                        <div class="panel panel-default" ng-show="toggle"
+                             style="position:absolute;width:500px;right:0px;">
+                            <div class="panel-body" style="padding-top:2px">
+                                <div class="row"
+                                     style="border-bottom:1px solid #E7E5E5;">
+                                    <div class="col-sm-12">
+                                        <h5>
+                                            Friends Requests
+                                        </h5>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top:7px" ng-repeat="requestedPeople in rpeoples">
+                                    <div class="col-sm-2">
+                                        <img src="{{ requestedPeople.picture.thumbnail }}"
+                                             style="width:65px">
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <a href="">
+                                            <h5>
+                                                {{ requestedPeople.name.first }}
+                                            </h5>
+                                        </a>
+                                        <!--<h6>
+                                            Friends with
+                                            <strong>
+                                                <a href="" style="color:#444">
+                                                    Vegeshna Satyanarayana
+                                                </a>
+                                            </strong>
+                                        </h6>-->
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <friends>
+                                            <button style="margin-top:10px"
+                                                class="btn btn-sm btn-default" ng-click="confirmrequest('{{ requestedPeople._id }}')">
+                                            Confirm Friend
+                                            </button>
+                                        </friends>
+                                    </div>
+                                </div>
+
+
+                                <div class="row"
+                                     style="border-bottom:1px solid #E7E5E5;margin-top:10px">
+                                    <div class="col-sm-12">
+                                        <h5>
+                                            Notifications
+                                        </h5>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top:7px" ng-repeat="accepted_people in apeoples">
+                                    <div class="col-sm-2">
+                                        <img src="{{ accepted_people.picture.thumbnail }}"
+                                             style="width:65px">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <h5>
+                                            <a href="">
+                                                {{ accepted_people.name.first }}
+                                            </a>
+                                            Accepted your friend request
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
                     <li>
                         <a href="" bs-dropdown="dropdown" style="padding-top: 11px; padding-bottom: 11px;">

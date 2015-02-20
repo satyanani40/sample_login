@@ -55,7 +55,8 @@
                                 Password
                             </label>
                             <div class="col-sm-9">
-                                <input type="password" class="form-control" id="password" name="password" ng-model="formData.password" required  />
+                                <input type="password" class="form-control"
+                                       placeholder="Enter Password" id="password" name="password" ng-model="formData.password" required  />
                                 <span ng-show="myForm.password.$error.required && myForm.password.$dirty" style="color:red">
                                     required
                                 </span>

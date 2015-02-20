@@ -25,40 +25,70 @@
 					</a>
 				</h5>
 			</div>
-			<div class="panel-body" style="padding:0px">
-                <div class="list-group" style="margin-bottom:0px;">
-                    <a class="list-group-item">
-                        <span>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<h5 style="margin-bottom:5px;margin-top:0px;opacity:0.80" class="about-edit">
+							<i class="glyphicon glyphicon-check" style="opacity:0.65"></i>&nbsp;
+							Iam interested in:
+						</h5>
+						<h6 style="margin-top:1px">
+							<a href="" style="line-height:1.2em;color:">
 
-                            Name:&nbsp;
-                            <strong style="opacity:0.80">
-                                {{user.name.first}} {{user.name.last}}
-                            </strong>
-                        </span>
-                    </a>
-                    <a class="list-group-item">
-                        <span>
-                            Studied at:&nbsp;
-                            <strong style="opacity:0.80">
-                                V.R Siddhartha College of Engineering
-                            </strong>
-                        </span>
-                    </a>
-                    <a class="list-group-item">
-                        <span>
-                            Works at:&nbsp;
-                            <strong style="opacity:0.80">
-                                Websoc Software
-                            </strong>
-                        </span>
-                    </a>
-                </div>
+									Playing Chess
+
+							</a>,&nbsp;
+							<a href="" style="line-height:1.2em;color:">
+
+									Foot Ball
+
+							</a>
+							<a href="" style="line-height:1.2em;color:">
+
+									Cricket
+
+							</a>,&nbsp;
+							<a href="" style="line-height:1.2em;color:">
+									Temple Run
+
+							</a>
+						</h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<h5 style="margin-bottom:5px;margin-top:0px;opacity:0.80">
+							<i class="glyphicon glyphicon-folder-open" style="opacity:0.65"></i>&nbsp;
+							Studied at:
+						</h5>
+						<h6 style="margin-top:1px">
+							<a href="" style="line-height:1.2em;color:">
+
+									Velagapudi Ramakrishna Siddhartha Engineering College
+
+							</a>
+						</h6>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<h5 style="margin-bottom:5px;margin-top:0px;opacity:0.80">
+							<i class="glyphicon glyphicon-home" style="opacity:0.65"></i>&nbsp;
+							Lives in:
+						</h5>
+						<h6 style="margin-top:1px">
+							<a href="" style="line-height:1.2em;color:">
+								Hyderabad, Talangana State
+							</a>
+						</h6>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="panel panel-default">
 			<div class="clearfix panel-heading">Friends({{user.friends.length}})</div>
                 <a ng-repeat="friend in friends" href="#/profile/{{friend._id}}">
-				<img data-placement="top-right" data-content="{{friend.location.city}}, {{friend.location.state}}" title="{{friend.name.first}} {{friend.name.last}}" data-trigger="hover" bs-popover src="{{friend.picture.thumbnail}}">
+				<img data-placement="top-right" style="width:70px" data-content="{{friend.location.city}}, {{friend.location.state}}" title="{{friend.name.first}} {{friend.name.last}}" data-trigger="hover" bs-popover src="{{friend.picture.thumbnail}}">
 			</a>
 		</div>
 	</div>
@@ -76,11 +106,17 @@
 				</div>
 			</div>
 		</form>
+		<!--<div class="well clearfix">
+			<h3 style="text-align: center">
+					Import your Contacts from your Email to find your friends on Weber!
+					</h3>
+			<button class="btn btn-success btn-sm pull-right">Import</button>
+		</div>-->
 		<div infinite-scroll='infinitePosts.nextPage()' infinite-scroll-disabled='infinitePosts.busy' infinite-scroll-distance='0'>
 			<div class="media panel panel-default" ng-repeat="post in infinitePosts.posts">
-				<div class="media-body panel-heading" style="background-color:#FFFFFF;">
+				<div class="media-body panel-heading">
 					<a class="pull-left" style="padding: 5px;" href="#/profile/{{UserService.get(post.author)._id}}">
-						<img style="width:35px" class="media-object img-circle" src="{{UserService.get(post.author).picture.thumbnail}}" alt="">
+						<img style="width:28px" class="media-object img-circle" src="{{UserService.get(post.author).picture.thumbnail}}" alt="">
 					</a>
 					<strong>
 						<a href="#/profile/{{UserService.get(post.author)._id}}" style="color:#E04836">
@@ -100,3 +136,5 @@
 		</div>
 	</div>
 </div>
+
+<div chatbar></div>

@@ -48,8 +48,8 @@ angular.module('weberApp')
 
 			var matchResults = new MatchMeResults();
 
-			var params1 = '{"$or":[{"keywords": {"$in":['+(combine_ids($scope.search.split(" ")))+']}},{"content":{"$regex":".*'+$scope.search+'.*"}}]}';
-			var params2 = '{"author":1}';
+			//var params1 = '{"$or":[{"keywords": {"$in":['+(combine_ids($scope.search.split(" ")))+']}},{"content":{"$regex":".*'+$scope.search+'.*"}}]}';
+			//var params2 = '{"author":1}';
 
 			matchResults.getMatchResults($scope.search,combine_ids($scope.search.split(" ")))
 			    .then(function() {

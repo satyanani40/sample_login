@@ -16,6 +16,15 @@ import flask
 import urllib2, random
 from views import get_search
 from weberdb import WeberDB
+from flask.ext.socketio import SocketIO, emit, join_room, leave_room
+
+
+
+from flask import Flask
+from flask_mail import Mail, Message
+
+
+
 
 
 class TokenAuth(TokenAuth):
@@ -26,6 +35,19 @@ class TokenAuth(TokenAuth):
 
 app = Eve(__name__,static_url_path='/static')
 app.debug = True,
+
+
+app.config.update(
+	DEBUG=True,
+	#EMAIL SETTINGS
+	MAIL_SERVER='smtp.gmail.com',
+	MAIL_PORT=465,
+	MAIL_USE_SSL=True,
+	MAIL_USERNAME = 'suryachowdary93@gmail.com',
+	MAIL_PASSWORD = 'Llakshmi@muppalla7'
+	)
+
+mail=Mail(app)
 
 def create_token(user):
     payload = {
@@ -41,6 +63,9 @@ def create_token(user):
 def parse_token(req):
     token = req.headers.get('Authorization').split()[1]
     return jwt.decode(token, TOKEN_SECRET)
+
+
+
 
 
 def login_required(f):
@@ -84,10 +109,10 @@ def send_foo(filename):
 def login():
     accounts = app.data.driver.db['people']
     user = accounts.find_one({'email': request.json['email']})
-    """if not user['confirmed'] == True:
-        response = jsonify(error = 'your email is not confirmed, please confirm your account')
+    if not user['email_confirmed'] == True:
+        response = jsonify(error='you email is not confirmed please confirm your account')
         response.status_code = 401
-        return response"""
+        return response
     if not user or not check_password_hash(user['password'], request.json['password']):
         response = jsonify(error='Wrong Email or Password')
         response.status_code = 401
@@ -95,6 +120,33 @@ def login():
     #return json.dumps(user,default=json_util.default)
     token = create_token(user)
     return jsonify(token=token)
+
+
+@app.route('/forgotpasswordlink', methods=['POST', 'GET'])
+def forgotpassword():
+    accounts = app.data.driver.db['people']
+    user = accounts.find_one({'email': request.json['email']})
+    if not user:
+        response = jsonify(error = 'Your Email does not exist in our database')
+        response.status_code = 401
+        return response
+    else:
+        msg = Message('Password Link',
+                      sender='suryachowdary93@gmail.com',
+                      recipients=[request.json['email']]
+
+            )
+        msg.html = "<p>Thanks for registering with us, " \
+                       "To complete your Weber registration, Follow this link:<br>\
+                        <br><p style='color:red;border:1px solid #dcdcdc;padding:10px;" \
+                       "width:800px;text-align:center;font-size:14px;'>" \
+                       "http://192.168.0.100:8000//#/confirm_account/users/"+user_id+"</p>\
+                        <br><br><br><br>\
+                        Thanks,<br>The Weber Team\
+                        </p>"
+        mail.send(msg)
+        return "recovery email link has been sent to providing email"
+
 
 @app.route('/getsearch')
 def getSearchResults():
@@ -110,6 +162,7 @@ def getSearchResults():
 
 @app.route('/similarwords')
 def getSimilarWords():
+
     words = parse_sentence(request.args.get("new_post"))
     post_tokens = create_tokens(request.args.get("new_post"))
     keywords = set(list(post_tokens)+list(words))
@@ -117,22 +170,6 @@ def getSimilarWords():
 
 ##################################################
 #Signup with email confirm validation
-
-from flask import Flask
-from flask_mail import Mail, Message
-
-
-app.config.update(
-	DEBUG=True,
-	#EMAIL SETTINGS
-	MAIL_SERVER='smtp.gmail.com',
-	MAIL_PORT=465,
-	MAIL_USE_SSL=True,
-	MAIL_USERNAME = 'suryachowdary93@gmail.com',
-	MAIL_PASSWORD = 'Llakshmi@muppalla7'
-	)
-
-mail=Mail(app)
 
 
 import time
@@ -150,7 +187,7 @@ def signup():
             },
             'password' :generate_password_hash(request.json['password']),
             'password_test':request.json['password'],
-            'confirmed':False,
+            'email_confirmed':False,
             'random_string':"",
             'picture' : {
                 'large' : "http://icons.iconarchive.com/icons/hydrattz/multipurpose-alphabet/256/Letter-W-blue-icon.png",
@@ -182,7 +219,7 @@ def signup():
                    "To complete your Weber registration, Follow this link:<br>\
                     <br><p style='color:red;border:1px solid #dcdcdc;padding:10px;" \
                    "width:800px;text-align:center;font-size:14px;'>" \
-                   "http://127.0.0.1:8000/#/confirm_account/users/"+user_id+"</p>\
+                   "http://192.168.0.100:8000//#/confirm_account/users/"+user_id+"</p>\
                     <br><br><br><br>\
                     Thanks,<br>The Weber Team\
                     </p>"
@@ -200,6 +237,7 @@ from random import randint
     range_start = 10**(n-1)
     range_end = (10**n)-1
     return randint(range_start, range_end)"""
+
 
 #end of confirm validation
 #################################################
@@ -293,10 +331,59 @@ def fileupload():
             print os.path.join(app.config['UPLOAD_FOLDER'], renamed_filename)
         return os.path.join(app.config['UPLOAD_FOLDER'], renamed_filename)
 
+#chating part
+socketio = SocketIO(app)
 
 
-app.run(threaded= True, host='127.0.0.1',port=8000)
+@socketio.on('connect')
+def creta_or_join(data):
 
+    print '========================'
+    print data['data']
+    if(join_into_room(data['data'])):
+        print request.namespace.rooms
+        emit('join_status',{'data': data['data'] in request.namespace.rooms})
+
+
+@socketio.on('send_message')
+def send_to_room(data):
+
+    print '===========message============='
+    print data['receiverid']
+    print data['senderid']
+    print data['message']
+
+    emit('receive_messages',
+         {
+          'message': data['message'],
+          'senderid':data['senderid'],
+          'receiverid':data['receiverid']
+         },
+         room=data['receiverid'])
+
+    """if(join_into_room(data['data'])):
+        print request.namespace.rooms
+        emit('join_status',{'data': data['data'] in request.namespace.rooms})"""
+
+
+
+@socketio.on_error()
+def error_handler(e):
+    print '============error=========='
+    print e
+
+def join_into_room(id):
+
+    data = False
+    if id is not None:
+        join_room(id)
+        data = True
+    return data
+
+
+
+app.threaded=True
+socketio.run(app,host='192.168.0.100',port=8000)
 
 # server sent events section
 """from redis import Redis

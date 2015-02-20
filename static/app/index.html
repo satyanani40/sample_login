@@ -16,6 +16,7 @@
 	<!-- endbower -->
 	<!-- endbuild -->
 	<!-- build:css(.tmp) styles/main.css -->
+	<link rel="stylesheet" href="/static/app/styles/bootstrap.css" />
 	<link rel="stylesheet" href="/static/app/styles/main.css">
 	<link rel="stylesheet" href="/static/app/styles/chat_css.css">
     <!-- endbuild -->
@@ -34,7 +35,7 @@
     	<div ng-view=""></div>
     </div>
 
-    <div chatbar></div>
+
 
 
 
@@ -93,32 +94,28 @@
 	<script src="/static/app/scripts/controllers/main.js"></script>
 	<script src="/static/app/scripts/controllers/about.js"></script>
     <script src="/static/app/scripts/controllers/friends.js"></script>
-	<script src="/static/app/scripts/controllers/messages.js"></script>
     <script src="/static/app/scripts/controllers/confirm_email.js"></script>
+	<script src="/static/app/scripts/controllers/forgot_password.js"></script>
     <script src="/static/app/scripts/controllers/settings.js"></script>
-	<script src="/static/app/scripts/controllers/chatcontroller.js"></script>
-	<script src="/static/app/scripts/controllers/userprofile.js"></script>
-	<script src="/static/app/scripts/controllers/instantsearch.js"></script>
-	<script src="/static/app/scripts/controllers/login.js"></script>
-	<script src="/static/app/scripts/controllers/signup.js"></script>
-	<script src="/static/app/scripts/controllers/navbar.js"></script>
-	<script src="/static/app/scripts/controllers/weber_search.js"></script>
-
-	<script src="/static/app/scripts/filters/fromnow.js"></script>
-
     <script src="/static/app/scripts/services/SettingsService.js"></script>
 	<script src="/static/app/scripts/services/weberservice.js"></script>
     <script src="/static/app/scripts/services/friendRequests.js"></script>
     <script src="/static/app/scripts/services/navbarservices.js"></script>
     <script src="/static/app/scripts/services/ChatSerivce.js"></script>
     <script src="/static/app/scripts/directives/requestsdirectives.js"></script>
+    <script src="/static/app/scripts/controllers/chatcontroller.js"></script>
+	<script src="/static/app/scripts/controllers/userprofile.js"></script>
+	<script src="/static/app/scripts/controllers/instantsearch.js"></script>
 	<script src="/static/app/scripts/filters/searchfor.js"></script>
-
+	<script src="/static/app/scripts/controllers/login.js"></script>
+	<script src="/static/app/scripts/controllers/signup.js"></script>
+	<script src="/static/app/scripts/controllers/navbar.js"></script>
+	<script src="/static/app/scripts/filters/fromnow.js"></script>
+	<script src="/static/app/scripts/controllers/weber_search.js"></script>
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
 	<!--<script type="text/javascript" src="/static/app/scripts/autocomplete.js"></script>
 	<script type="text/javascript" src="/static/app/scripts/autocomplete_ap.js"></script>-->
 	<!-- endbuild -->
-
 </body>
 
 </html>
