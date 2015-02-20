@@ -152,6 +152,7 @@ def getSearchResults():
 
 @app.route('/similarwords')
 def getSimilarWords():
+
     words = parse_sentence(request.args.get("new_post"))
     post_tokens = create_tokens(request.args.get("new_post"))
     keywords = set(list(post_tokens)+list(words))

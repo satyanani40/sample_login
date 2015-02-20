@@ -152,7 +152,7 @@ message_schema = {
 messages = {
     'item_title':'messages',
     'schema':message_schema,
-    'item_lookup_field': 'receiver'
+
 }
 
 people = {

@@ -195,7 +195,6 @@ angular.module('weberApp')
 	}).factory('MatchMeResults', function($http, Restangular, $alert, $timeout,CurrentUser,$auth,CurrentUser1) {
 
 		var  MatchMeResults = function() {
-
 			this.total_matches = '';
 			this.mresults = [];
 			this.matchedids = [];

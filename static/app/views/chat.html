@@ -25,23 +25,51 @@
                                     {{ chatuser.name.first }} {{ chatuser.name.last }}
 
                     </a>
-                    <a class="list-group-item"
-                       style="border-top-left-radius: 0px;border-top-right-radius: 0px;">
-                        <div class="input-group">
-							<input id="btn-input" type="text" class="form-control input-sm"
-                                   placeholder="Search online friends..." />
-							<span class="input-group-btn">
-                                <button class="btn btn-default btn-sm" id="btn-chat">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </span>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="right-inner-addon">
+                                <i class="fa fa-search" style="opacity:0.70"></i>
+                                <input type="search" class="form-control input-sm"
+                                       placeholder="Search Online Friends" />
+                            </div>
                         </div>
-                    </a>
+                        <div class="col-sm-2">
+                            <div class='div-1' ng-click="gg=true;loadLatestMessages()">
+                                <label class="label label-danger">{{ chatactivity.messageNotifc.length }} </label>
+                            </div>
+                            <div class='row'>
+                                <div class="col-sm-3" style="position:fixed;right:0px;bottom:450px" ng-show="gg">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="list-group" style="margin-bottom:0px" >
+
+                                                <a  class="list-group-item"
+                                                   style="border-top-left-radius: 0px;border-top-right-radius: 0px;" ng-repeat="message in chatactivity.latestMessages"
+                                                   id="{{ message.sender._id}}"  name="{{  message.sender.name.first }}" addchatdiv
+                                                >
+
+
+                                                        <img style="width:30px;margin-right:5px" class=""
+                                                             src="{{ message.sender.picture.medium }}" alt="">
+                                                                {{ message.sender.name.first }}
+                                                                {{ message.message }}
+
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div ng-repeat="previousdiv in previousdivs" class="col-md-3 colpadding chat_divs"
-                 style="right:{{ previousdiv.right}}px;height:{{ previousdiv.height}}"
+                 style="right:{{ previousdiv.right}}px;height:{{ previousdiv.height}};"
                  wb-affix="150">
                 <div class="panel panel-success" style="margin-bottom:0px;cursor:default;border:none;">
 
@@ -51,7 +79,8 @@
                                 <a href="">
                                     {{ previousdiv.name }}
                                 </a>
-                                {{ chatdivnotification }}
+
+                                <label class="label label-danger" ng-if="checknotific(previousdiv.id)">new message</label>
                             </div>
                             <div class="col-sm-3">
                                 <span>
@@ -79,8 +108,11 @@
                     </div>
 
 
-                        <div class="panel-body">
-							<ul class="chat">
+                        <div class="panel-body" >
+
+
+                            <ul class="chat">
+
 								<li class="left clearfix" ng-repeat="message in loadedMessages"
 
                                         ng-if="message.sender._id == previousdiv.id || message.receiver._id == previousdiv.id"
@@ -112,8 +144,9 @@
 										</p>
 									</div>
 								</li>
-
 							</ul>
+
+
 						</div>
 
 

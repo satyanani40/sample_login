@@ -1,13 +1,14 @@
 angular.module('weberApp')
 
-    .factory('ChatActivity', function($http, Restangular) {
+    .factory('ChatActivity', function($http, Restangular,$auth) {
 
         var ChatActivity = function(currentuser){
 
             this.currentuser = currentuser;
             this.chatfriends = null;
             this.messages = [];
-
+            this.messageNotifc = [];
+            this.latestMessages = [];
         }
 
         ChatActivity.prototype.getChatFriends = function(){
@@ -24,12 +25,12 @@ angular.module('weberApp')
             var currentdate = new Date();
             this.receiverid = receiverid;
 
-            var datetime = "Last Sync: " + currentdate.getDate() + "/"
+            /*var datetime = "Last Sync: " + currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/"
                 + currentdate.getFullYear() + " @ "
                 + currentdate.getHours() + ":"
                 + currentdate.getMinutes() + ":"
-                + currentdate.getSeconds();
+                + currentdate.getSeconds();*/
 
             return Restangular.all('messages').post({
                 'sender':this.currentuser._id,
@@ -55,7 +56,9 @@ angular.module('weberApp')
                  this.messages[k].receiver._id == user1)
                 )
                 {
-                    console.log('------------messge ids---')
+                    console.log('------------checking data---')
+                    //console.log(this.messages[k])
+
                     if(this.messages[k]._id === undefined){
                         this.messages.splice(k,1)
                     }
@@ -63,7 +66,9 @@ angular.module('weberApp')
                     if(lastid == null)
                         lastid = this.messages[k]._id;
 
-                    if(lastid < this.messages[k]._id)
+                    console.log(typeof this.messages[k])
+
+                    if(typeof this.messages[k] !== 'undefined' && lastid < this.messages[k]._id)
                         lastid = this.messages[k]._id;
                 }
             }
@@ -100,6 +105,67 @@ angular.module('weberApp')
             this.messages.push(message);
             return this.messages;
         }
+
+        ChatActivity.prototype.getMessageNotifcations= function(){
+            var where_param = '{"$and":[{"receiver":"'+this.currentuser._id+'"},{"seen":false}]}';
+            //var sort_param = '[("_created",-1)]';
+            //var embedded_param = '{"sender":1,"receiver":1}';
+            var self = this;
+            Restangular.all('messages').getList({
+                where: where_param,
+                //embedded: embedded_param,
+                seed:Math.random()
+            }).then(function(data){
+                self.messageNotifc.push.apply(self.messageNotifc, data);
+            }.bind(self))
+        }
+
+        ChatActivity.prototype.loadLatestMessages = function(){
+            this.latestMessages = [];
+            this.messageNotifc = [];
+            var where_param = '{"receiver":"'+this.currentuser._id+'"}';
+            var sort_param = '[("_created",-1)]';
+            var embedded_param = '{"sender":1,"receiver":1}';
+
+            var self = this;
+
+            Restangular.all('messages').getList({
+                where: where_param,
+                embedded: embedded_param,
+                sort:sort_param,
+                seed:Math.random()
+            }).then(function(data){
+                self.latestMessages.push.apply(self.latestMessages, data);
+            }.bind(self))
+        }
+
+        ChatActivity.prototype.makeMessagesSeen = function(senderid){
+            var self = this;
+            for(k in self.latestMessages){
+                if(self.latestMessages[k].sender._id == senderid  &&
+                   self.latestMessages[k].receiver._id == this.currentuser._id){
+                    console.log('-------------recevied message-----------')
+                    console.log(self.latestMessages[k]._id)
+                    Restangular.one("messages",self.latestMessages[k]._id).patch(
+                        {seen:true},{},
+                        {
+                            'Content-Type': 'application/json',
+                            'If-Match': this.latestMessages[k]._etag,
+                            'Authorization': $auth.getToken()
+                        }
+				    );
+                }
+            }
+        }
+
+        ChatActivity.prototype.pushLatestMessage = function(msg){
+            console.log('---------pushing mesage--------')
+            console.log(msg)
+            this.messageNotifc.push.apply(this.messageNotifc,[msg]);
+            console.log(this.messageNotifc)
+
+        }
+
 
     return ChatActivity;
     });
