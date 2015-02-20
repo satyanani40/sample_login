@@ -43,14 +43,18 @@ angular.module('weberApp')
         }
 
         ChatActivity.prototype.loadMessages = function(user1, user2){
-
             var self = this;
             var lastid = null;
+            console.log('---------------------messages----------------')
+            console.log(this.messages)
+
 
             for(k in this.messages){
                 if(
-                 (this.messages[k].sender._id == user1 &&
-                 this.messages[k].receiver._id == user2)
+                 (
+                 this.messages[k].sender._id == user1 &&
+                 this.messages[k].receiver._id == user2
+                 )
                    ||
                  (this.messages[k].sender._id == user2 &&
                  this.messages[k].receiver._id == user1)
@@ -109,11 +113,11 @@ angular.module('weberApp')
         ChatActivity.prototype.getMessageNotifcations= function(){
             var where_param = '{"$and":[{"receiver":"'+this.currentuser._id+'"},{"seen":false}]}';
             //var sort_param = '[("_created",-1)]';
-            //var embedded_param = '{"sender":1,"receiver":1}';
+            var embedded_param = '{"sender":1,"receiver":1}';
             var self = this;
             Restangular.all('messages').getList({
                 where: where_param,
-                //embedded: embedded_param,
+                embedded: embedded_param,
                 seed:Math.random()
             }).then(function(data){
                 self.messageNotifc.push.apply(self.messageNotifc, data);

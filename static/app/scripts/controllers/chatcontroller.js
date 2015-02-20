@@ -25,7 +25,7 @@ angular.module('weberApp')
                             });
                          }
 
-						var socket = io.connect('http://127.0.0.1:8000');
+						var socket = io.connect('http://192.168.0.100:8000');
 
 						socket.on('connect', function() {
 							socket.emit('connect', {data: user._id});
