@@ -8,7 +8,7 @@
  * Controller of the weberApp
  */
 angular.module('weberApp')
-	.controller('SettingsCtrl', function($route, $scope, $auth, Restangular, InfinitePosts, $alert, $http, CurrentUser, UserService, fileUpload) {
+	.controller('SettingsCtrl', function($route, $location, $scope, $auth, Restangular, InfinitePosts, $alert, $http, CurrentUser, UserService, fileUpload) {
 		$scope.UserService = UserService;
 		$http.get('/api/me', {
 			headers: {

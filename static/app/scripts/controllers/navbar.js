@@ -17,6 +17,82 @@ angular.module('weberApp')
                              $location,$http,Restangular,ChatActivity,
                              SearchActivity,FriendsNotific,friendsActivity) {
 
+            //this is the testing part of the search bar in navbar
+
+            $scope.friends1 = [
+                { name: "Surya Chowdary Muppalla",
+                  picture:"http://api.randomuser.me/portraits/thumb/women/85.jpg",
+                  age: 20
+                },
+                { name: "Vegeshna Satyanarayana",
+                  picture:"http://api.randomuser.me/portraits/thumb/men/6.jpg",
+                  age: 20
+                },
+                { name: "Ashok Raj Bathu",
+                  picture:"http://api.randomuser.me/portraits/thumb/women/9.jpg",
+                  age: 20
+                },
+                { name: "Websoc Software Technologies",
+                  picture:"http://api.randomuser.me/portraits/thumb/men/43.jpg",
+                  age: 20
+                },
+                { name: "Weber Social Connections",
+                  picture:"http://api.randomuser.me/portraits/thumb/men/8.jpg",
+                  age: 20
+                },
+                { name: "We are Intelligents",
+                  picture:"http://api.randomuser.me/portraits/thumb/women/82.jpg",
+                  age: 20
+                }
+              ];
+
+              $scope.filterFunction = function(element) {
+                return element.name.match(/^Ma/) ? true : false;
+              };
+
+
+              $scope.menuOpened = false;
+              $scope.noteOpened = false;
+
+              $scope.noteMenu = function(event) {
+
+
+                $scope.noteOpened = !($scope.noteOpened);
+                event.stopPropagation();
+
+              };
+
+
+              $scope.toggleMenu = function(event) {
+                  $scope.menuOpened = !($scope.menuOpened);
+
+              // Important part in the implementation
+              // Stopping event propagation means window.onclick won't get called when someone clicks
+              // on the menu div. Without this, menu will be hidden immediately
+                  event.stopPropagation();
+              };
+
+              window.onclick = function() {
+                  if ($scope.menuOpened) {
+                      $scope.menuOpened = false;
+
+                // You should let angular know about the update that you have made, so that it can refresh the UI
+                      $scope.$apply();
+                  }
+
+                  if ($scope.noteOpened) {
+                      $scope.noteOpened = false;
+
+                // You should let angular know about the update that you have made, so that it can refresh the UI
+                      $scope.$apply();
+                  }
+
+              };
+            //####################ending part of testing part###########
+
+
+
+
 
  			$scope.dropdown = [{
 				"text": "Settings",

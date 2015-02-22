@@ -109,6 +109,10 @@ def send_foo(filename):
 def login():
     accounts = app.data.driver.db['people']
     user = accounts.find_one({'email': request.json['email']})
+    if not user:
+        response = jsonify(error='you email does not exist, please register with us to login')
+        response.status_code = 401
+        return response
     if not user['email_confirmed'] == True:
         response = jsonify(error='you email is not confirmed please confirm your account')
         response.status_code = 401
@@ -140,7 +144,7 @@ def forgotpassword():
                        "To complete your Weber registration, Follow this link:<br>\
                         <br><p style='color:red;border:1px solid #dcdcdc;padding:10px;" \
                        "width:800px;text-align:center;font-size:14px;'>" \
-                       "http://192.168.0.100:8000//#/confirm_account/users/"+user_id+"</p>\
+                       "http://127.0.0.1:8000/#/confirm_account/users/</p>\
                         <br><br><br><br>\
                         Thanks,<br>The Weber Team\
                         </p>"
@@ -219,7 +223,7 @@ def signup():
                    "To complete your Weber registration, Follow this link:<br>\
                     <br><p style='color:red;border:1px solid #dcdcdc;padding:10px;" \
                    "width:800px;text-align:center;font-size:14px;'>" \
-                   "http://192.168.0.100:8000//#/confirm_account/users/"+user_id+"</p>\
+                   "http://127.0.0.1:8000/#/confirm_account/users/"+user_id+"</p>\
                     <br><br><br><br>\
                     Thanks,<br>The Weber Team\
                     </p>"
@@ -383,7 +387,7 @@ def join_into_room(id):
 
 
 app.threaded=True
-socketio.run(app,host='192.168.0.100',port=8000)
+socketio.run(app,host='127.0.0.1',port=8000)
 
 # server sent events section
 """from redis import Redis

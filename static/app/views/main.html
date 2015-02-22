@@ -88,13 +88,14 @@
 		<div class="panel panel-default">
 			<div class="clearfix panel-heading">Friends({{user.friends.length}})</div>
                 <a ng-repeat="friend in friends" href="#/profile/{{friend._id}}">
-				<img data-placement="top-right" style="width:70px" data-content="{{friend.location.city}}, {{friend.location.state}}" title="{{friend.name.first}} {{friend.name.last}}" data-trigger="hover" bs-popover src="{{friend.picture.thumbnail}}">
+				<img data-placement="top-right" style="width:65px" data-content="{{friend.location.city}}, {{friend.location.state}}" title="{{friend.name.first}} {{friend.name.last}}" data-trigger="hover" bs-popover src="{{friend.picture.thumbnail}}">
 			</a>
 		</div>
 	</div>
 	<div class="col-md-6 colpadding" style="min-height:2000px">
 		<form role="form" class="post-to-timeline panel panel-default panel-body clearfix">
-			<textarea ng-model="new_post" class="form-control" style="height: 70px;margin-bottom: 10px;" placeholder="Whats happening?"></textarea>
+			<textarea ng-model="new_post" class="form-control"
+                      style="height: 70px;margin-bottom: 10px;" placeholder="Whats happening?" required></textarea>
 			<div class="row">
 				<div class="col-sm-6">
 					<a class="btn btn-sm btn-default"><i class="glyphicon glyphicon-camera"></i></a>
@@ -116,7 +117,7 @@
 			<div class="media panel panel-default" ng-repeat="post in infinitePosts.posts">
 				<div class="media-body panel-heading">
 					<a class="pull-left" style="padding: 5px;" href="#/profile/{{UserService.get(post.author)._id}}">
-						<img style="width:28px" class="media-object img-circle" src="{{UserService.get(post.author).picture.thumbnail}}" alt="">
+						<img style="width:35px" class="media-object img-circle" src="{{UserService.get(post.author).picture.thumbnail}}" alt="">
 					</a>
 					<strong>
 						<a href="#/profile/{{UserService.get(post.author)._id}}" style="color:#E04836">

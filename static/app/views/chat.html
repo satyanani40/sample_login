@@ -2,17 +2,30 @@
     <div class="row">
         <div class="col-md-3 colpadding side_chat" style=""
               wb-affix="150">
+            <div class="panel-heading"
+                 style="border:1px solid #dcdcdc;background-color:#dcdcdc;padding:5px 15px;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5>
+                            <strong>Friends in online</strong>
+
+                            &nbsp;(30)
+                        </h5>
+                    </div>
+                </div>
+            </div>
             <div class="panel-body messages-scroll" style="padding:0px;margin-bottom:0px;">
                 <div class="list-group" style="margin-bottom:0px;">
                     <a style="cursor:pointer;" class="list-group-item list-group-border"
                              ng-repeat="chatuser in chatusers" id="{{chatuser._id}}"
                              name="{{ chatuser.name.first }} {{ chatuser.name.last }}" addchatdiv>
                         <div class="row">
-                            <div class="col-sm-2 colpadding">
-                                <img src="{{ chatuser.picture.thumbnail}}" alt="" style="width:40px;border-radius:50%;">
+                            <div class="col-sm-1">
+                                <img src="{{ chatuser.picture.thumbnail}}" alt=""
+                                     style="width:30px;border-radius:50%;">
                             </div>
-                            <div class="col-sm-10 ">
-                                <h5 style="opacity:0.70;margin-top:0px;">
+                            <div class="col-sm-10 " style="padding-left:25px;">
+                                <h5 style="opacity:0.70;margin-top:5px;">
                                     {{ chatuser.name.first }} {{ chatuser.name.last }}
                                     <span class="pull-right">
                                         <small style="opacity:0.50">10/11/2012</small>
@@ -25,42 +38,14 @@
             </div>
             <div class="panel-footer" style="background-color:#fff;">
                 <div class="row">
-                    <div class="col-sm-10">
+                    <div class="col-sm-12 colpadding">
                         <div class="right-inner-addon">
                             <i class="fa fa-search" style="opacity:0.70"></i>
                             <input type="search" class="form-control input-sm"
                                    placeholder="Search Online Friends" />
                         </div>
                     </div>
-                    <div class="col-sm-2">
-                        <div class='div-1' ng-click="gg=true;loadLatestMessages()">
-                            <label class="label label-danger">{{ chatactivity.messageNotifc.length }} </label>
-                        </div>
-                        <div class='row'>
-                            <div class="col-sm-3" style="position:fixed;right:0px;bottom:450px" ng-show="gg">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <div class="list-group" style="margin-bottom:0px" >
 
-                                            <a  class="list-group-item"
-                                               style="border-top-left-radius: 0px;border-top-right-radius: 0px;" ng-repeat="message in chatactivity.latestMessages"
-                                               id="{{ message.sender._id}}"  name="{{  message.sender.name.first }}" addchatdiv
-                                            >
-
-
-                                                    <img style="width:30px;margin-right:5px" class=""
-                                                         src="{{ message.sender.picture.medium }}" alt="">
-                                                            {{ message.sender.name.first }}
-                                                            {{ message.message }}
-
-                                            </a>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -69,11 +54,14 @@
              style="right:{{ previousdiv.right}}px;height:{{ previousdiv.height}}"
              wb-affix="150">
             <div class="well" style="border: 1px solid #C2C0C0;padding:0px;margin-bottom:0px;">
-                <div class="panel-heading" style="border-bottom:1px solid #dcdcdc;background-color:#c9dce4">
+                <div class="panel-heading"
+                     style="border-bottom:1px solid #dcdcdc;background-color:#dcdcdc">
                     <div class="row">
                         <div class="col-sm-9">
-                            <a href="">
-                                {{ previousdiv.name }}
+                            <a href="" style="color:#333;">
+                                <strong>
+                                    {{ previousdiv.name }}
+                                </strong>
                             </a>
 
                             <label class="label label-danger" ng-if="checknotific(previousdiv.id)">new message</label>
@@ -101,7 +89,8 @@
                     </div>
                 </div>
                 <div class="panel-body messages-scroll" style="height:230px;">
-                    <div class="row" ng-repeat="message in loadedMessages"
+                    <div class="row" style="padding-bottom:15px;"
+                         ng-repeat="message in loadedMessages"
                                  ng-if="message.sender._id == previousdiv.id || message.receiver._id == previousdiv.id">
                         <div class="col-sm-3 colpadding" style="width:45px;">
 
@@ -110,14 +99,10 @@
 
                         </div><!-- /col-sm-1 -->
 
-                        <div class="col-sm-9 colpadding">
-                            <div class="panel panel-default">
-                                <div class="panel-body" style="border-bottom:none !important;">
-                                <span class="text-muted">
-                                    {{ message.message }}
-                                </span>
+                        <div class="col-sm-9" style="padding-right:0px;">
+                            <div class=" chat_box">
+                                {{ message.message }}
                             </div>
-                            </div><!-- /panel panel-default -->
                         </div><!-- /col-sm-5 -->
                     </div>
                 </div>

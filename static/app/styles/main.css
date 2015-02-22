@@ -265,3 +265,42 @@ body {
     pointer-events: none;
 }
 
+
+
+
+.box-shadowpanel{
+
+    -webkit-box-shadow: 3px 2px 12px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 2px 12px -1px rgba(0,0,0,0.75);
+    box-shadow: 3px 2px 12px -1px rgba(0,0,0,0.75);
+    border
+}
+
+.arrow_box {
+	position: relative;
+	background: #ffffff;
+	border: 4px solid #ffffff;
+}
+.arrow_box:after, .arrow_box:before {
+	bottom: 100%;
+	right:22%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-bottom-color: #ffffff;
+	border-width: 7px;
+	margin-left: -7px;
+}
+.arrow_box:before {
+	border-color: rgba(255, 255, 255, 0);
+	border-bottom-color: #ffffff;
+	border-width: 13px;
+	margin-left: -13px;
+}
