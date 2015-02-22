@@ -11,3 +11,4 @@ angular.module('weberApp')
 		};
         return FriendsNotific;
 });
+

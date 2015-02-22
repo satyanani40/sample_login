@@ -25,7 +25,7 @@ angular.module('weberApp')
                             });
                          }
 
-						var socket = io.connect('http://192.168.0.100:8000');
+						var socket = io.connect('http://192.168.0.101:8000');
 
 						socket.on('connect', function() {
 							socket.emit('connect', {data: user._id});
@@ -74,7 +74,7 @@ angular.module('weberApp')
                                 }else if(!(details.minimize)){
 
                                     $scope.chatnotifcation = null;
-                                    $scope.chatdivnotification = null;
+                                    $scope.chatdivnotification = [];
 
                                          new_message = {
                                               sender :{
@@ -96,8 +96,9 @@ angular.module('weberApp')
                                          }
 
                                 }else if(details.minimize){
-                                    //$scope.chatdivnotification = 'new_Message';
+
                                     console.log('chatdiv notifications===========')
+                                    console.log(msg.senderid)
                                     $scope.chatdivnotification.push({ id:msg.senderid,
                                                                       message: true
                                                                      });
@@ -206,7 +207,7 @@ angular.module('weberApp')
                             $scope.newchatdiv(id, name,'40px',true,false);
                         }
                         $scope.maximize = function(id){
-                            $scope.chatdivnotification = null;
+                            $scope.chatdivnotification = [];
                             var name = JSON.parse($window.sessionStorage.getItem(id)).name
                             $window.sessionStorage.removeItem(id);
                             $scope.newchatdiv(id, name, 'auto',false,true);

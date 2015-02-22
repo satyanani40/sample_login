@@ -109,10 +109,13 @@ def send_foo(filename):
 def login():
     accounts = app.data.driver.db['people']
     user = accounts.find_one({'email': request.json['email']})
-    if not user['email_confirmed'] == True:
+    #print '----------email confirmed-----------'
+    #print user['email_confirmed']
+    """if not user['email_confirmed'] == True:
+        #print user['email_confirmed']
         response = jsonify(error='you email is not confirmed please confirm your account')
         response.status_code = 401
-        return response
+        return response"""
     if not user or not check_password_hash(user['password'], request.json['password']):
         response = jsonify(error='Wrong Email or Password')
         response.status_code = 401
@@ -383,7 +386,7 @@ def join_into_room(id):
 
 
 app.threaded=True
-socketio.run(app,host='192.168.0.100',port=8000)
+socketio.run(app,host='192.168.0.101',port=8000)
 
 # server sent events section
 """from redis import Redis

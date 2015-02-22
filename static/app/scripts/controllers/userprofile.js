@@ -14,8 +14,8 @@ angular.module('weberApp')
 
 		$scope.UserService = UserService;
 
-        var currentuserobj = new CurrentUser();
 
+        var currentuserobj = new CurrentUser();
          currentuserobj.getUserId()
             .then(function(){
 
@@ -45,7 +45,8 @@ angular.module('weberApp')
                             return $scope.relation;
                         }
 
-                        $scope.AddFriend = function(){
+
+                        /*$scope.AddFriend = function(){
                             var user_obj = Restangular.one('people', $routeParams.username);
 		                    user_obj.get().then(function(profileuser) {
                                 $scope.profileuser = profileuser;
@@ -71,14 +72,11 @@ angular.module('weberApp')
 
                                 $scope.cr = friendsactivity.cancelrequest();
                                 console.log($scope.cr)
-                                /*$scope.cr.then(function(data){
-                                    console.log(data)
 
-                                });*/
                             });
-                        }
+                        }*/
 
-                        $scope.unfriend = function(){
+                        /*$scope.unfriend = function(){
 
                              var currentuserobj = new CurrentUser();
 
@@ -99,47 +97,11 @@ angular.module('weberApp')
                                     });
                                 });
                              });
-                        }
-
-                        $scope.reject_request = function(){
-
-                         var currentuserobj = new CurrentUser();
-
-                         currentuserobj.getUserId().then(function(){
-
-                            currentuserobj.getCUserDetails(currentuserobj.userId)
-
-                                .then(function(user){
-
-                                    $scope.currentuser = user;
-                                    friendsactivity = new friendsActivity($scope.currentuser, $scope.profileuser)
-                                    $scope.rf = friendsactivity.reject_request();
-                                    $scope.rf.then(function(response){
-                                        console.log(response)
-                                    });
+                        }*/
 
 
-                            });
-                          });
-                        }
 
-                        $scope.accept_request = function(){
 
-                            var currentuserobj = new CurrentUser();
-
-                                 currentuserobj.getUserId().then(function(){
-
-                                    currentuserobj.getCUserDetails(currentuserobj.userId).then(function(user){
-                                        var user_obj = Restangular.one('people', $routeParams.username);
-                                        user_obj.get().then(function(profileuser) {
-                                            $scope.profileuser = profileuser;
-                                            $scope.currentuser = user;
-                                            friendsactivity = new friendsActivity($scope.currentuser, $scope.profileuser)
-                                            $scope.acceptfrnd = friendsactivity.accept_request();
-                                        });
-                                    });
-                            });
-                        }
                     });
                 });
            });

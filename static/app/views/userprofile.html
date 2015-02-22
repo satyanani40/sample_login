@@ -1,5 +1,5 @@
 <div navbar></div>
-<div class="container">
+<div class="container" checkinfunctions>
 	<div class="col-md-3 colpadding" wb-affix="150">
 		<div class="thumbnail">
 			<img class="img-rounded" style="width: 100%;" src="{{profileuser.picture.medium}}">
@@ -9,22 +9,28 @@
 					<br>
 
 
-
+				<img src="{{ loadingimage }}" alt="">
+				{{ loadingimage}}
                 <div ng-switch on="check_relation()">
 
                     <div ng-switch-when="unfriend">
-						<addfriend>
+						<unaddfriend>
                         	<button ng-click="unfriend()" class="btn btn-primary">unfriend</button>
-						</addfriend>
+						</unaddfriend>
                     </div>
 
                     <div ng-switch-when="cancelrequest">
-                        <addfriend><button ng-click="cancelrequest()" class="btn btn-primary">cancel request</button></addfriend>
+                        <addfriend>
+							<button ng-click="cancelrequest()" class="btn btn-primary">cancel request</button>
+						</addfriend>
                     </div>
 
+
                     <div ng-switch-when="reject_accept">
-                        <button ng-click="accept_request()" class="btn btn-primary">accept request</button>
-                        <button ng-click="reject_request()" class="btn btn-primary">reject request</button>
+						<acceptreject>
+                        	<button ng-click="acceptrequest()" class="btn btn-primary">accept request</button>
+							<button ng-click="rejectrequest()" class="btn btn-primary">reject request</button>
+						</acceptreject>
                     </div>
 
                     <div ng-switch-when="addfriend">
