@@ -88,8 +88,10 @@
 		<div class="panel panel-default">
 			<div class="clearfix panel-heading">Friends({{user.friends.length}})</div>
                 <a ng-repeat="friend in friends" href="#/profile/{{friend._id}}">
-				<img data-placement="top-right" style="width:65px" data-content="{{friend.location.city}}, {{friend.location.state}}" title="{{friend.name.first}} {{friend.name.last}}" data-trigger="hover" bs-popover src="{{friend.picture.thumbnail}}">
-			</a>
+                    <img data-placement="top-right" style="width:65px"
+                         data-content="{{friend.location.city}}, {{friend.location.state}}"
+                         title="{{friend.name.first}} {{friend.name.last}}" data-trigger="hover" bs-popover src="{{friend.picture.thumbnail}}">
+                </a>
 		</div>
 	</div>
 	<div class="col-md-6 colpadding" style="min-height:2000px">

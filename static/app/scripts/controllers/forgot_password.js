@@ -13,7 +13,7 @@ angular.module('weberApp')
         $scope.sendPassword = function(){
 
             // Simple POST request example (passing data) :
-            $http.get('/forgotpasswordlink', {email:$scope.email}).
+            $http.post('/forgotpasswordlink', {email:$scope.email}).
               success(function(data, status, headers, config) {
                 // this callback will be called asynchronously
                 // when the response is available

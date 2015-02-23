@@ -21,17 +21,18 @@
 
                                 <div class="panel panel-default"ng-show="menuOpened" style="width:540px;position:absolute;">
                                     <div class="panel-body" style="padding:0px;">
-                                        <div class="list-group" style="margin-bottom:0px;">
-                                            <a style="cursor:pointer;" class="list-group-item"
-                                               ng-repeat="friend in friends1 | filter:query | orderBy: 'name' ">
+                                        <div class="" style="margin-bottom:0px;"
+                                               ng-repeat="friend in friends1 | filter:query | orderBy: 'name.first' | limitTo : 5 ">
+                                            <a style="" href="/#/profile/{{ friend._id }}"
+                                               class="list-group-item search_a">
                                                 <div class="row">
                                                     <div class="col-sm-1">
-                                                        <img src="{{ friend.picture }}"
+                                                        <img src="{{ friend.picture.large }}"
                                                              style="width:40px">
                                                     </div>
                                                     <div class="col-sm-8">
                                                         <h5 style="opacity:0.75;">
-                                                            {{friend.name}}
+                                                            {{friend.name.first}} {{ friend.name.last }}
                                                         </h5>
                                                     </div>
                                                 </div>

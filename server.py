@@ -44,7 +44,7 @@ app.config.update(
 	MAIL_PORT=465,
 	MAIL_USE_SSL=True,
 	MAIL_USERNAME = 'suryachowdary93@gmail.com',
-	MAIL_PASSWORD = 'Llakshmi@muppalla7'
+	MAIL_PASSWORD = 'Ssurya@Mmuppalla7'
 	)
 
 mail=Mail(app)
@@ -192,17 +192,22 @@ def signup():
             'password' :generate_password_hash(request.json['password']),
             'password_test':request.json['password'],
             'email_confirmed':False,
-            'random_string':"",
             'picture' : {
                 'large' : "http://icons.iconarchive.com/icons/hydrattz/multipurpose-alphabet/256/Letter-W-blue-icon.png",
                 'medium' : "http://icons.iconarchive.com/icons/hydrattz/multipurpose-alphabet/256/Letter-W-blue-icon.png",
                 'thumbnail' : "http://icons.iconarchive.com/icons/hydrattz/multipurpose-alphabet/256/Letter-W-blue-icon.png"
             },
+            'phone': "",
+            'interests': [],
+            'study': {
+              'intermediate':"",
+              'graduate': ""
+            },
+            'password_random_string': "",
             'accept_notifications':[],
             'born' : "",
             'gender' : "",
             '_created':time.strftime('%Y-%m-%d %H:%M:%S'),
-            'phone' : '',
             'location' : {
                 'city' : "",
                 'state' : "",

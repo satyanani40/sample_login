@@ -250,6 +250,21 @@ people = {
             'default':False
         },
 
+        'interests':{
+            'type':'list',
+            'schema': {
+                'type': 'string',
+            }
+        },
+
+        'study':{
+            'type': 'dict',
+            'schema': {
+                'intermediate': {'type': 'string'},
+                'graduate': {'type': 'string'}
+            },
+        },
+
         'notifications': {
             'type': 'list',
             'schema': {

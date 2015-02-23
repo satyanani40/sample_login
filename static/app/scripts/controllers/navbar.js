@@ -19,32 +19,15 @@ angular.module('weberApp')
 
             //this is the testing part of the search bar in navbar
 
-            $scope.friends1 = [
-                { name: "Surya Chowdary Muppalla",
-                  picture:"http://api.randomuser.me/portraits/thumb/women/85.jpg",
-                  age: 20
-                },
-                { name: "Vegeshna Satyanarayana",
-                  picture:"http://api.randomuser.me/portraits/thumb/men/6.jpg",
-                  age: 20
-                },
-                { name: "Ashok Raj Bathu",
-                  picture:"http://api.randomuser.me/portraits/thumb/women/9.jpg",
-                  age: 20
-                },
-                { name: "Websoc Software Technologies",
-                  picture:"http://api.randomuser.me/portraits/thumb/men/43.jpg",
-                  age: 20
-                },
-                { name: "Weber Social Connections",
-                  picture:"http://api.randomuser.me/portraits/thumb/men/8.jpg",
-                  age: 20
-                },
-                { name: "We are Intelligents",
-                  picture:"http://api.randomuser.me/portraits/thumb/women/82.jpg",
-                  age: 20
-                }
-              ];
+            var searchFriends = Restangular.all('people').getList();
+
+            searchFriends.then(function(database_friends){
+
+                $scope.friends1 = database_friends;
+
+            });
+
+
 
               $scope.filterFunction = function(element) {
                 return element.name.match(/^Ma/) ? true : false;

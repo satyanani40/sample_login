@@ -1,73 +1,15 @@
 <div navbar></div>
 <div class="container">
-    <div class="col-sm-3 colpadding">
+    <div class="col-sm-4 colpadding">
         <div class="panel panel-default" style="opacity:0.90">
             <div class="media panel-heading" style="background-color:#fff">
                 <h5 style="margin-top:10px;margin-bottom:4px;">
                     <strong>
-                        Account
+                        Basic Account Settings
                     </strong>
                 </h5>
             </div>
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-offset-2"></div>
-                    <div class="col-sm-10">
-                        shdiushadcds
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6 colpadding">
-        <div class="panel panel-default" style="opacity:0.90">
-            <div class="media panel-heading" style="background-color:#fff">
-                <h4 style="margin-top:10px">
-                    <strong>
-                        Account
-                    </strong>
-                </h4>
-                <h5>
-                    Change your basic account, language and location settings
-                </h5>
-            </div>
-            <div class="panel-body">
-                <label style="opacity:0.70;margin-left:2px">
-                    Profile Picture
-                </label>
-                <div class="jumbotron" style="padding:15px;margin-bottom:10px;">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="thumbnail" style="margin-bottom:0px;">
-                                <img src="{{ user.picture.large }}">
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <a class="change_picture" style="cursor:pointer;">
-                                Change Profile Picture
-                            </a>
-                            <div class="row picture_edit_section" style="margin-top:5px;">
-                                <div class="col-sm-12">
-                                    <span>
-                                        <h6 style="opacity:0.70">
-                                            <strong>
-                                                Note:&nbsp;
-                                            </strong>
-                                            Image should be less than 700px, Should be JPEG, PNG, GIF.
-                                        </h6>
-                                    </span>
-                                    <span>
-                                        <input type="file" file-model="myFile" class="btn btn-sm btn-default" />
-                                    </span>
-                                    <span>
-                                        <input style="margin-top:5px" ng-click="uploadFile()"
-                                               type="submit" value="Update" class="btn btn-xs btn-success" />
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <label style="opacity:0.70;margin-left:2px">
                     Username
                 </label>
@@ -79,8 +21,8 @@
                             </h5>
                         </div>
                         <div class="col-sm-3">
-                            <button style="margin-top:7px" class="edit_name btn btn-xs btn-primary">
-                                Edit Name
+                            <button style="margin-top:7px" class="pull-right edit_name btn btn-xs btn-primary">
+                                Edit
                             </button>
                         </div>
                     </div>
@@ -99,10 +41,10 @@
                             </h6>
                             <span>
                                 <div class="row">
-                                    <div class="col-sm-3 colpadding text-right col-sm-offset-2">
+                                    <div class="col-sm-3 colpadding text-right col-sm-offset-1">
                                         <h6>Username:</h6>
                                     </div>
-                                    <div class="col-sm-5 colpadding">
+                                    <div class="col-sm-8 colpadding">
                                         <input type="text" ng-model="u_username" placeholder="{{ user.username }}"
                                            class="form-control input-sm" />
                                     </div>
@@ -110,9 +52,9 @@
                             </span>
                             <span>
                                 <div class="row" style="margin-top:5px;">
-                                    <div class="col-sm-offset-5 colpadding col-sm-2 ">
+                                    <div class="col-sm-offset-4 colpadding col-sm-2 ">
                                         <button ng-click="updateUsername()" class="btn btn-xs btn-success">
-                                            Update Name
+                                            Update
                                         </button>
                                     </div>
                                     <div class="col-sm-2 colpadding">
@@ -127,6 +69,54 @@
                 </div>
 
                 <label style="opacity:0.70;margin-left:2px">
+                    Edit First name and Last name
+                </label>
+                <div class="jumbotron" style="padding:15px;margin-bottom:10px;">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <h5 style="opacity:0.90">
+                                {{ user.name.first }} {{ user.name.last }}
+                            </h5>
+                        </div>
+                        <div class="col-sm-3">
+                            <button style="margin-top:7px;display:none;"
+                                    class="pull-right btn btn-xs btn-primary">
+                                Edit
+                            </button>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="row" style="padding-bottom:10px;">
+                            <div class="col-sm-4 colpadding">
+                                <h6 class="pull-right" >First name</h6>
+                            </div>
+                            <div class="col-sm-8 colpadding">
+                                <input type="text" class="input-sm form-control" placeholder="enter first name"
+                                        ng-model = edit_first_name />
+                            </div>
+                        </div>
+                        <div class="row" style="padding-bottom:10px;">
+                            <div class="col-sm-4 colpadding">
+                                <h6 class="pull-right">Last name</h6>
+                            </div>
+                            <div class="col-sm-8 colpadding">
+                                <input type="text" class="input-sm form-control" placeholder="enter last name"
+                                        ng-model = edit_last_name />
+                            </div>
+                        </div>
+                        <div class="row" style="">
+                            <div class="col-sm-offset-4 col-sm-5 colpadding">
+                                <button ng-click="updateFirstLastName()" class="btn btn-xs btn-success">
+                                    Update
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <label style="opacity:0.70;margin-left:2px">
                     Password
                 </label>
                 <div class="jumbotron" style="padding:15px;margin-bottom:10px;">
@@ -135,8 +125,8 @@
                             <h5 style="opacity:0.90">Password updated a month ago</h5>
                         </div>
                         <div class="col-sm-3">
-                            <button style="margin-top:7px" class="edit_password btn btn-xs btn-primary">
-                                Edit Password
+                            <button style="margin-top:7px" class="pull-right edit_password btn btn-xs btn-primary">
+                                Edit
                             </button>
                         </div>
                     </div>
@@ -148,20 +138,20 @@
                             <span>
                                 <form name="myForm">
                                     <div class="row">
-                                        <div class="col-sm-3 colpadding text-right col-sm-offset-2">
+                                        <div class="col-sm-3 colpadding text-right col-sm-offset-1">
                                             <h6>Old password:</h6>
                                         </div>
-                                        <div class="col-sm-5 colpadding">
+                                        <div class="col-sm-8 colpadding">
                                             <input type="text" placeholder="old password"
                                                class="form-control input-sm" />
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-3 colpadding text-right col-sm-offset-2">
+                                        <div class="col-sm-3 colpadding text-right col-sm-offset-1">
                                             <h6>New password:</h6>
                                         </div>
-                                        <div class="col-sm-5 colpadding">
+                                        <div class="col-sm-8 colpadding">
                                             <input type="password" id="pw1" name="pw1" class="form-control input-sm" placeholder="enter new password"
                                                    ng-model="pw1" ng-required="" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" />
                                             <span ng-show="myForm.pw1.$error.required && myForm.pw1.$dirty"
@@ -179,10 +169,10 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-3 colpadding text-right col-sm-offset-2">
+                                        <div class="col-sm-3 colpadding text-right col-sm-offset-1">
                                             <h6>Re-enter new password:</h6>
                                         </div>
-                                        <div class="col-sm-5 colpadding">
+                                        <div class="col-sm-8 colpadding">
                                             <input type="password" id="pw2" name="pw2"  class="form-control input-sm" placeholder="Re-enter new password"
                                                    ng-model="pw2" ng-required="" pw-check="pw1" />
                                             <div class="msg-block" ng-show="myForm.$error">
@@ -220,10 +210,12 @@
                 </label>
                 <div class="jumbotron" style="padding:15px;margin-bottom:10px;">
                     <div class="row username_section">
-                        <div class="col-sm-9">
+                        <div class="col-sm-12">
                             <h5>
-                                <a style="text-decoration:none;opacity:0.60;">
-                                    suryamuppalla@gmail.com
+                                <a style="text-decoration:none;color:#333;cursor: no-drop;opacity:0.60;">
+                                    <strong>
+                                        suryamuppalla@gmail.com
+                                    </strong>
                                 </a>
                             </h5>
                             <h6 style="opacity:0.60">
@@ -233,6 +225,80 @@
 
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-5 colpadding">
+        <div class="panel panel-default" style="opacity:0.90">
+            <div class="media panel-heading" style="background-color:#fff">
+                <h5 style="margin-top:10px">
+                    <strong>
+                        Account
+                    </strong>
+                </h5>
+                <h5>
+                    Change your basic account, language and location settings
+                </h5>
+            </div>
+            <div class="panel-body">
+                <label style="opacity:0.70;margin-left:2px">
+                    Profile Picture
+                </label>
+                <div class="jumbotron" style="padding:15px;margin-bottom:10px;">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="thumbnail" style="margin-bottom:0px;">
+                                <img src="{{ user.picture.large }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <a class="change_picture" style="cursor:pointer;">
+                                Change Profile Picture
+                            </a>
+                            <div class="row picture_edit_section" style="margin-top:5px;">
+                                <div class="col-sm-12">
+                                    <span>
+                                        <h6 style="opacity:0.70">
+                                            <strong>
+                                                Note:&nbsp;
+                                            </strong>
+                                            Image should be less than 700px, Should be JPEG, PNG, GIF.
+                                        </h6>
+                                    </span>
+                                    <span>
+                                        <input type="file" file-model="myFile" class="btn btn-sm btn-default" />
+                                    </span>
+                                    <span>
+                                        <input style="margin-top:5px" ng-click="uploadFile()"
+                                               type="submit" value="Update" class="btn btn-xs btn-success" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <label style="opacity:0.70;margin-left:2px">
+                    Interests
+                </label>
+                <div class="jumbotron" style="padding:15px;margin-bottom:10px;">
+                    <div class="row interest_section">
+                        <div class="col-sm-9">
+                            <h6>
+                                Playing chess, cricket, football, hockey, carroms,
+                                 temple run, candy crush..
+                            </h6>
+                        </div>
+                        <div class="col-sm-3 interest_button">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-xs"
+                                    data-toggle="modal" data-target="#myModal">
+                              Add Interest
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
 
 
             </div>
@@ -240,6 +306,57 @@
     </div>
 </div>
 <div chatbar></div>
+
+
+<div class="modal fade" style="" id="myModal" tabindex="-1"
+                                     role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div style="background:yellow;">
+      <div id="screen-overlay"></div>
+      <div class="modal-dialog"
+           style="position:absolute;top:25%;left:26%;z-index:999;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Interests</h4>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="well">
+                          <div class="row">
+                              <div class="col-sm-3">
+                                  <img src="https://lh3.googleusercontent.com/-g01tVesCKaw/AAAAAAAAAAI/AAAAAAAAHpc/5T04Ds1EJzs/photo.jpg"
+                                       style="width:60px;">
+                              </div>
+                              <div class="col-sm-9">
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="well">
+                          <div class="row">
+                              <div class="col-sm-3">
+                                  <img src="https://lh3.googleusercontent.com/-g01tVesCKaw/AAAAAAAAAAI/AAAAAAAAHpc/5T04Ds1EJzs/photo.jpg"
+                                       style="width:60px;">
+                              </div>
+                              <div class="col-sm-9">
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
 
 
 <style>
@@ -269,6 +386,20 @@
     .picture_edit_section{
         display:none;
     }
+
+    .interest_section .interest_button{
+        display:none;
+    }
+
+    .interest_section:hover .interest_button{
+        display:block;
+
+    }
+    .show_interest{
+        display:none;
+    }
+
+
 </style>
 
 <script>
@@ -286,6 +417,22 @@
         });
 
     });
+
+    $(document).ready(
+    function(){
+        $(".interest_button").click(function () {
+
+            if($('.show_interest').is(':visible')){
+               $('.show_interest').fadeOut('fast');
+            }
+            else{
+               $('.show_interest').fadeIn('slow');
+            }
+        });
+
+    });
+
+
     $(document).ready(
     function(){
         $(".change_picture").click(function () {

@@ -28,6 +28,17 @@ angular.module('weberApp')
                 })
 			};
 
+			$scope.updateFirstLastName = function() {
+                $scope.user.patch({
+                    'name':{
+                        'first':$scope.edit_first_name,
+                        'last':$scope.edit_last_name
+                    }
+                }).then(function(response){
+                    $route.reload();
+                })
+			};
+
 
 			$scope.uploadFile = function(){
 				var file = $scope.myFile;
