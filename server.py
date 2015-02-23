@@ -386,7 +386,7 @@ def join_into_room(id):
 
 
 app.threaded=True
-socketio.run(app,host='192.168.0.101',port=8000)
+socketio.run(app,host='107.155.116.80',port=8000)
 
 # server sent events section
 """from redis import Redis
