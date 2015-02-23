@@ -10,7 +10,7 @@
 angular.module('weberApp')
 	.controller('EmailCtrl', function($http, Restangular, $scope, $auth, $alert, $location, $routeParams) {
 
-        var element = $routeParams.userId;
+        var element = $routeParams.random_generate_token;
 
         // Simple POST request example (passing data) :
         /*$http.get('/api/people/'+element).

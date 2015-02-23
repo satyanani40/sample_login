@@ -132,16 +132,16 @@ angular
 					}
 				}
 			})
-			.when('/emaildetails', {
-				templateUrl: '/static/app/views/emaildetails.html'
+			.when('/emaildetails/:userId', {
+				templateUrl: '/static/app/views/emaildetails.html',
+				controller:'EmailDetailCtrl'
 			})
-			.when('/confirm_account/users/:userId', {
+			.when('/confirm_account/users/:random_generate_token', {
 				templateUrl:'/static/app/views/confirm_email.html',
 				controller:'EmailCtrl'
 			})
 			.when('/signup', {
-				templateUrl: '/static/app/views/signup.html',
-				controller: 'SignupCtrl'
+				templateUrl: '/static/app/views/signup.html'
 			})
 			.otherwise({
 				redirectTo: '/'

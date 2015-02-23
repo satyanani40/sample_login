@@ -149,7 +149,7 @@ def forgotpassword():
                         Thanks,<br>The Weber Team\
                         </p>"
         mail.send(msg)
-        return "recovery email link has been sent to providing email"
+        return "ecovery email link has been sent to providing email"
 
 
 @app.route('/getsearch')
@@ -203,7 +203,7 @@ def signup():
               'intermediate':"",
               'graduate': ""
             },
-            'password_random_string': "",
+            'random_string': id_generator(),
             'accept_notifications':[],
             'born' : "",
             'gender' : "",
@@ -217,6 +217,7 @@ def signup():
             'notifications':[]
         }
         accounts.insert(user)
+        random_string = str(user['random_string'])
         user_id = str(user['_id'])
 
         msg = Message('Confirm your weber account',
@@ -228,16 +229,22 @@ def signup():
                    "To complete your Weber registration, Follow this link:<br>\
                     <br><p style='color:red;border:1px solid #dcdcdc;padding:10px;" \
                    "width:800px;text-align:center;font-size:14px;'>" \
-                   "http://127.0.0.1:8000/#/confirm_account/users/"+user_id+"</p>\
+                   "http://127.0.0.1:8000/#/confirm_account/users/"+random_string+"</p>\
                     <br><br><br><br>\
                     Thanks,<br>The Weber Team\
                     </p>"
         mail.send(msg)
-        return "email has been sent successfully"
+        return user_id
     else:
         response = jsonify(error='Your are already registered with this email')
         response.status_code = 401
         return response
+
+
+import string
+import random
+def id_generator(size=40, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
 
 
 from random import randint
