@@ -1,10 +1,14 @@
 In a new server which is vps or new system or a new instance we need to 
 connect to server using terminal by typing
+==========================================================================
  ssh (-p 25000) root@12.34.56.789 (-p is port..and ip address is your server ip adderess.)
+ =========================================================================
 1)to install curl and then python by using
+==========================================================================
 apt-get install curl (if you are in root dont use 'sudo' or else add 'sudo' to the command)
 apt-get install python
 2)and we need to install pip and python developer tools
+===========================================================================
 sudo apt-get install build-essential python-dev
 sudo apt-get install python-pip
 sudo apt-get install virtualenv
