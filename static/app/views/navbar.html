@@ -77,12 +77,10 @@
                                         </h6>-->
                                     </div>
                                     <div class="col-sm-2">
-                                        <friends>
-                                            <button style="margin-top:10px"
-                                                class="btn btn-sm btn-default" ng-click="confirmrequest('{{ requestedPeople._id }}')">
-                                            Confirm Friend
-                                            </button>
-                                        </friends>
+                                        <acceptreject>
+                                            <button ng-click="acceptrequest('{{requestedPeople._id}}','navbarview')" class="btn btn-primary">accept request</button>
+                                            <button ng-click="rejectrequest('{{requestedPeople._id}}','navbarview')" class="btn btn-primary">reject request</button>
+                                        </acceptreject>
                                     </div>
                                 </div>
 

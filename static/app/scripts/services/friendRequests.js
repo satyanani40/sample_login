@@ -118,22 +118,60 @@ angular.module('weberApp')
             }
         }
 
-        friendsActivity.prototype.reject_request = function(){
+        friendsActivity.prototype.remove_pfriends = function(){
+             var k = null;
+                for (k in this.profileuser.friends){
+                    if(this.profileuser.friends[k] == (this.currentuser._id)){
+                        this.profileuser.friends.splice(this.profileuser.friends.indexOf(this.currentuser._id),1)
+                        return this.profileuser.patch({
+                           'friends': this.profileuser.friends
+                        })
+                    }
+                }
+        }
+
+        friendsActivity.prototype.remove_cfriends = function(){
+             k = null;
+            for(k in this.currentuser.friends){
+                if(this.currentuser.friends[k] ==(this.profileuser._id)){
+                    this.currentuser.friends.splice(this.currentuser.friends.indexOf(this.profileuser._id),1);
+                    return this.currentuser.patch({
+                        'friends': this.currentuser.friends
+                    });
+                }
+            }
+        }
+
+        friendsActivity.prototype.removeCnotifcations = function(){
             var k = null;
-            var data = null;
                 for (k in this.currentuser.notifications){
                     if(this.currentuser.notifications[k].friend_id == (this.profileuser._id)){
                         this.currentuser.notifications.splice(this.currentuser.notifications.indexOf(this.profileuser._id),1)
-                        data = this.currentuser.patch({
+                        return data = this.currentuser.patch({
                            'notifications': this.currentuser.notifications
                         });
 
                     }
                 }
-            return data;
+
 
         }
 
+        friendsActivity.prototype.removePnotifcations = function(){
+            var k = null;
+                for (k in this.profileuser.notifications){
+                    if(this.profileuser.notifications[k].friend_id == (this.currentuser._id)){
+                        this.profileuser.notifications.splice(this.profileuser.notifications.indexOf(this.currentuser._id),1)
+                        console.log('removing pnotifcations in service')
+                        return  this.profileuser.patch({
+                           'notifications': this.profileuser.notifications
+                        });
+
+                    }
+                }
+
+
+        }
 
 
         friendsActivity.prototype.accept_request = function(){
@@ -143,17 +181,18 @@ angular.module('weberApp')
 
             if(this.profileuser.friends.indexOf(this.currentuser._id) == -1){
                 this.profileuser.friends.push(this.currentuser._id)
+
                 this.profileuser.patch({
                    'friends': this.profileuser.friends
                 }).then(function(response){
-
+                        console.log('added to profile user friends')
                         var new_request = {'accepted_id':self.currentuser._id,'seen':false}
                         self.profileuser.accept_notifications.push(new_request);
                         Restangular.one('people',self.profileuser._id).patch({
                             'accept_notifications':self.profileuser.accept_notifications,
                             'all_seen':false
                         },{},{'If-Match':response._etag});
-                        k = null;
+
                 })
             }
 

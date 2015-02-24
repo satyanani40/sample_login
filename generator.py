@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash
 from loremipsum import generate_paragraph
 
 print '---------------------------------fetching users-----------------------'
-url = 'http://192.168.0.101:8000/api/people'
+url = 'http://127.0.0.1:8000/api/people'
 randomuser = urllib2.urlopen('http://api.randomuser.me/?results=10')
 results = json.loads(randomuser.read())
 users=results['results']

@@ -87,7 +87,7 @@ angular
 				controller:'ForgotPasswordCtrl'
 
 			})
-			.when('/weber_search', {
+			.when('/weber_search/:query?', {
 				templateUrl: '/static/app/views/search.html',
 				controller: 'WeberSearchCtrl',
 			})

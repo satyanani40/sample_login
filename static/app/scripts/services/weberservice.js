@@ -71,7 +71,7 @@ angular.module('weberApp')
 
 			CurrentUser.prototype.getCUserDetails = function(userid){
 
-                return Restangular.one('people',JSON.parse(userid)).get();
+                return Restangular.one('people',JSON.parse(userid)).get({seed:Math.random()});
             };
 
             return CurrentUser;
@@ -275,8 +275,5 @@ angular.module('weberApp')
 				}.bind(this));
 				return data
 			};
-
 		return MatchMeResults;
-
-
 	});
