@@ -2,7 +2,7 @@
 <div class="container" style="">
     <div class="row">
         <div class="col-md-3 colpadding">
-            <div class="panel panel-default">
+            <div class="panel panel-default"  ng-if="isAuthenticated()">
                 <div class="panel-heading">
                     <span class="fa fa-search" style="opacity:0.60;font-size:16px"></span>&nbsp;
                     <strong>Surya</strong>
@@ -13,10 +13,11 @@
                         </span>
                     </a>
                 </div>
-                <div class="panel-body" style="padding:0px;margin-bottom:0px">
+                <div class="panel-body" style="padding:0px;margin-bottom:0px" >
                     <div class="list-group" style="margin-bottom:0px">
-                        <a href="" class="list-group-item" ng-repeat="sresult in searchActivity.searchResult"
-                           style="border-top-left-radius: 0px;border-top-right-radius: 0px;">
+
+                        <a  class="list-group-item" ng-repeat="sresult in searchActivity.searchResult"
+                           style="border-top-left-radius: 0px;border-top-right-radius: 0px;" href="/#/weber_search/{{ sresult.content}}">
 
                             <div id="{{ sresult._id}}" my-directive>
                                 <div class="row">
@@ -24,6 +25,7 @@
 
                                         <div style="overflow:hidden;text-overflow:ellipsis;">
                                         {{ sresult.content }}
+
                                         </div>
                                     </div>
                                     <div class="col-sm-2" ng-if="sresult.newResults != 0" >
@@ -40,10 +42,10 @@
         <div class="col-md-6 colpadding">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form class="form-horizontal" method="post"  name="signupForm" ng-submit="searching()">
+                    <form action="/#/weber_search" class="form-horizontal" method="get"  name="signupForm" ng-submit="searching()">
                         <div class="form-group" style="margin-bottom:2px">
                             <div class="col-sm-12">
-                                <input class="form-control"  type="text"  name="q" autocomplete ng-model="search"
+                                <input class="form-control"  type="text"  ng-model="query"  autocomplete ng-model="search"
                                                 placeholder="Search anything in Weber" ng-keyup="getSuggestions()"  autofocus  required/>
                             </div>
                             <div class="col-sm-4 col-sm-offset-4">
@@ -52,6 +54,7 @@
                             </div>
                         </div>
                     </form>
+                    <a href="/#/weber_search/{{ query }}">find</a>
                 </div>
             </div>
 
@@ -82,7 +85,7 @@
                                         </a>
                                         <span>
                                             <strong>
-                                                <a href="" style="color:#333">
+                                                <a href="/#/profile/{{ rs.author._id}}" style="color:#333">
                                                     {{ rs.author.name.first }}
                                                 </a>
                                             </strong> Matched with you.
@@ -91,9 +94,11 @@
                                                 <span am-time-ago="post._created">{{ rs._updated }}</span>
                                             </small>
 
-                                            <a href="" class="btn btn-sm btn-default pull-right">
+                                            <a  class="btn btn-sm btn-default pull-right" name="{{rs.author._id}}"
+                                             matchmechatdiv>
                                                 Chat
                                             </a>
+
                                         </span>
                                         <br>
                                     </div>
@@ -163,4 +168,4 @@
 
     </div>
 </div>
-<div chatbar></div>
+<div   chatbar></div>

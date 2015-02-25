@@ -30,9 +30,24 @@ angular.module('weberApp')
                     .then(function() {
                         $scope.matchmeresults = matchResults;
 
-                        if(CurrentUser1.userId != 'undefined'){
-                            $scope.searchActivity.addSearchText($scope.search,matchResults.total_matches,matchResults.matchedids,$scope.search.split(" "));
-                        }
+
+                        var currentuserobj = new CurrentUser();
+                        currentuserobj.getUserId()
+                        .then(function(){
+                            if(currentuserobj.userId != 'undefined'){
+                                currentuserobj.getCUserDetails(currentuserobj.userId)
+                                .then(function(user){
+                                   $scope.searchActivity = new SearchActivity(user)
+                                   $scope.searchActivity.addSearchText($scope.search,
+                                    matchResults.total_matches,
+                                    matchResults.matchedids,
+                                    $scope.search.split(" "));
+                                });
+                            }
+                        });
+
+
+
                 });
                 matchResults.getMatchPeoples($scope.search).then(function() {
                         $scope.matchmeresults = matchResults;
@@ -41,6 +56,20 @@ angular.module('weberApp')
 
             if(typeof $routeParams.query !== 'undefined'){
 			    get_match_results($routeParams.query);
+			}else{
+
+                    var currentuserobj = new CurrentUser();
+                    currentuserobj.getUserId()
+                    .then(function(){
+                        if(currentuserobj.userId){
+                            currentuserobj.getCUserDetails(currentuserobj.userId)
+                                .then(function(user){
+                                   $scope.searchActivity = new SearchActivity(user)
+                                });
+                        }
+                    });
+
+
 			}
         };
 

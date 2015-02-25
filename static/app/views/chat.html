@@ -5,8 +5,7 @@
             <div class="panel-body messages-scroll" style="padding:0px;margin-bottom:0px;">
                 <div class="list-group" style="margin-bottom:0px;">
                     <a style="cursor:pointer;" class="list-group-item list-group-border"
-                             ng-repeat="chatuser in chatusers" id="{{chatuser._id}}"
-                             name="{{ chatuser.name.first }} {{ chatuser.name.last }}" addchatdiv>
+                             ng-repeat="chatuser in chatusers" name="{{chatuser._id}}" addchatdiv>
                         <div class="row">
                             <div class="col-sm-2 colpadding">
                                 <img src="{{ chatuser.picture.thumbnail}}" alt="" style="width:40px;border-radius:50%;">
@@ -44,8 +43,7 @@
 
                                             <a  class="list-group-item"
                                                style="border-top-left-radius: 0px;border-top-right-radius: 0px;" ng-repeat="message in chatactivity.latestMessages"
-                                               id="{{ message.sender._id}}"  name="{{  message.sender.name.first }}" addchatdiv
-                                            >
+                                               name="{{ message.sender._id}}" addchatdiv>
 
 
                                                     <img style="width:30px;margin-right:5px" class=""
@@ -72,7 +70,7 @@
                 <div class="panel-heading" style="border-bottom:1px solid #dcdcdc;background-color:#c9dce4">
                     <div class="row">
                         <div class="col-sm-9">
-                            <a href="">
+                            <a href="/#/profile/{{ previousdiv.id }}">
                                 {{ previousdiv.name }}
                             </a>
 

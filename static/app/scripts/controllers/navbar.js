@@ -46,7 +46,9 @@ angular.module('weberApp')
 
 				Restangular.one('people',JSON.parse(user_id)).get({seed: Math.random()}).then(function(user) {
 				$scope.currentUser = user;
-				$scope.searchActivity = new SearchActivity(user);
+
+				//$scope.searchActivity = new SearchActivity(user);
+
 				var requested_peoples = [];
 				var accepted_peoples = [];
 
@@ -71,7 +73,6 @@ angular.module('weberApp')
 								}
 							}
 
-							console.log(accepted_peoples.length)
 
 							if(requested_peoples.length+accepted_peoples.length > 0){
 
@@ -145,6 +146,7 @@ angular.module('weberApp')
 									'notifications': user.notifications
 								}
 								).then(function(data){
+								    console.log('updated accept notifications')
 								});
 									var params = '{"_id": {"$in":["'+(reqnotific).join('", "') + '"'+']}}'
 									Restangular.all('people').getList({
@@ -165,7 +167,7 @@ angular.module('weberApp')
 							});
 						});
 					}
-  				$scope.confirmrequest = function(id){
+  				/*$scope.confirmrequest = function(id){
 					$http.get('/api/me', {
 						headers: {
 							'Content-Type': 'application/json',
@@ -184,7 +186,7 @@ angular.module('weberApp')
 							}
 						});
 					});
-  				}
+  				}*/
 			});
 		});
 	}

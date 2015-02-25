@@ -74,6 +74,7 @@ searchActivity_schema = {
         'content': {
             'type': 'string',
             'required': True,
+            'unique': True
 
         },
         'keywords': {

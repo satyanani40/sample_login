@@ -62,6 +62,8 @@ angular
 	.config(function($routeProvider, $locationProvider, $authProvider) {
 		$authProvider.logoutRedirect = '/';
 		$authProvider.loginOnSignup = false;
+		//$locationProvider.html5Mode(true);
+
 		$routeProvider
 			.when('/', {
 				templateUrl: '/static/app/views/main.html',
@@ -146,4 +148,5 @@ angular
 			.otherwise({
 				redirectTo: '/'
 			});
+
 	});
